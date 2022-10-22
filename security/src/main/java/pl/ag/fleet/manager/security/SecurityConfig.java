@@ -29,7 +29,9 @@ public class SecurityConfig {
         .csrf().disable()
         .cors().disable()
         .authorizeRequests()
-        .antMatchers("/login").permitAll()
+        .antMatchers("/login", "/swagger-ui/**", "/v2/api-docs", "/configuration/ui",
+            "/swagger-resources/**", "/configuration/**", "/swagger-ui.html"
+            , "/webjars/**", "/csrf", "/").permitAll()
         .anyRequest().authenticated()
         .and()
         .sessionManagement()
@@ -38,4 +40,5 @@ public class SecurityConfig {
         .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
         .build();
   }
+
 }

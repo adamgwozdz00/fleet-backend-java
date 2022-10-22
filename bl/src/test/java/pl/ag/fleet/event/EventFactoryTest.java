@@ -3,6 +3,7 @@ package pl.ag.fleet.event;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import org.junit.jupiter.api.Test;
+import pl.ag.fleet.common.FuelType;
 
 class EventFactoryTest {
 

@@ -3,7 +3,7 @@ package pl.ag.fleet.application.event;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.ag.fleet.event.FuelType;
+import pl.ag.fleet.common.FuelType;
 
 
 @Data

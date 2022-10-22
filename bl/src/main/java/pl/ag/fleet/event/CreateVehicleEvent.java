@@ -1,6 +1,7 @@
 package pl.ag.fleet.event;
 
 import lombok.Value;
+import pl.ag.fleet.common.FuelType;
 
 @Value
 public class CreateVehicleEvent implements Event {

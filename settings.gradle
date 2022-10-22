@@ -1,0 +1,18 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+        mavenLocal()
+    }
+}
+
+rootProject.name = 'fleet-backend-java'
+
+include 'bl'
+include 'db'
+include 'application'
+include 'flyway'
+include 'security'
+include 'kafka'
+include 'acl'
+

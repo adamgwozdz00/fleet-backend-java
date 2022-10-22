@@ -1,0 +1,10 @@
+package pl.ag.fleet.manager.security;
+
+import java.util.Optional;
+
+public interface UserRepository {
+
+  Optional<User> findByUsername(Username username);
+
+  User save(User user);
+}

@@ -1,0 +1,17 @@
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+    implementation project(':db')
+    implementation project(':bl')
+    implementation project(':acl')
+    implementation project(':kafka')
+    implementation project(':flyway')
+    implementation project(':security')
+
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter', version: springBootVersion
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: springBootVersion
+    implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.4.0'
+    implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+}

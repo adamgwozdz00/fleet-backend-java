@@ -16,4 +16,9 @@ public class RefuelEvent implements Event {
     this.cost = cost;
     this.time = new EventTime();
   }
+
+  @Override
+  public String getEventType() {
+    return this.getClass().getSimpleName();
+  }
 }

@@ -24,4 +24,9 @@ public class CreateVehicleEvent implements Event {
     this.fuelType = fuelType;
     this.time = new EventTime();
   }
+
+  @Override
+  public String getEventType() {
+    return this.getClass().getSimpleName();
+  }
 }

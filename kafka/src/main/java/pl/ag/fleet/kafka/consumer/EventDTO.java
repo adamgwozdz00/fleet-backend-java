@@ -5,6 +5,6 @@ import lombok.Value;
 
 @Value
 public class EventDTO {
-
-  Map<String, Object> data;
+  private String eventType;
+  private Map<String, Object> data;
 }

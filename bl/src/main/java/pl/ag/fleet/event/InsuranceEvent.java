@@ -14,4 +14,9 @@ public class InsuranceEvent implements Event {
     this.insurance = insurance;
     this.time = new EventTime();
   }
+
+  @Override
+  public String getEventType() {
+    return this.getClass().getSimpleName();
+  }
 }

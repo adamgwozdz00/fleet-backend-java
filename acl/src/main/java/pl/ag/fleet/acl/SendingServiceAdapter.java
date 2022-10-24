@@ -16,7 +16,7 @@ public class SendingServiceAdapter implements SendingService {
 
   @Override
   public void send(EventDTO dto) {
-    val event = new Event(dto.getData());
+    val event = new Event(dto.getEventType(),dto.getData());
     this.eventProducer.send(event);
   }
 }

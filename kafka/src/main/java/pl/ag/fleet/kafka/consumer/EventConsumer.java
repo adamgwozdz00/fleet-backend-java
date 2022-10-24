@@ -14,7 +14,7 @@ public class EventConsumer {
 
   @KafkaListener(topics = "${kafka.events.topic}")
   void listen(ConsumerRecord<String, Event> record) {
-    this.service.process(new EventDTO(record.value().getData()));
+    this.service.process(new EventDTO(record.value().getEventType(),record.value().getData()));
   }
 
 }

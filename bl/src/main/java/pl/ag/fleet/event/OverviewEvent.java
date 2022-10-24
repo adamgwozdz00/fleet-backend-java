@@ -14,4 +14,9 @@ public class OverviewEvent implements Event {
     this.overview = overview;
     this.time = new EventTime();
   }
+
+  @Override
+  public String getEventType() {
+    return this.getClass().getSimpleName();
+  }
 }

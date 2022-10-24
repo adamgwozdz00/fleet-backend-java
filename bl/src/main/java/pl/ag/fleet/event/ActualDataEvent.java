@@ -19,4 +19,9 @@ public class ActualDataEvent implements Event {
     this.kilometersState = kilometersState;
     this.time = new EventTime();
   }
+
+  @Override
+  public String getEventType() {
+    return this.getClass().getSimpleName();
+  }
 }

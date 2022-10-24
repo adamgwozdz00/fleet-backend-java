@@ -12,7 +12,7 @@ public class EventFactory {
       .registerModule(new JavaTimeModule());
 
   EventDTO createEvent(Event event) {
-    return new EventDTO(MAPPER.convertValue(event, Map.class));
+    return new EventDTO(event.getEventType(), MAPPER.convertValue(event, Map.class));
   }
 
 }

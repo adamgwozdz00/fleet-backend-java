@@ -1,17 +1,15 @@
-package pl.ag.fleet.kafka.shared;
+package pl.ag.fleet.kafka.consumer;
 
 import java.util.Map;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@EqualsAndHashCode
 public class Event {
+
   private String eventType;
   private Map<String, Object> data;
 }

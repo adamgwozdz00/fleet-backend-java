@@ -26,7 +26,7 @@ public class CreateVehicleEvent implements Event {
   }
 
   @Override
-  public String getEventType() {
-    return this.getClass().getSimpleName();
+  public EventType getEventType() {
+    return EventType.CREATE_VEHICLE;
   }
 }

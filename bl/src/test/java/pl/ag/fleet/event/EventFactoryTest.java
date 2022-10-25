@@ -29,6 +29,7 @@ class EventFactoryTest {
         "model",
         "productionYear",
         "fuelType",
-        "time"}, result.keySet().toArray());
+        "time",
+        "eventType"}, result.keySet().toArray());
   }
 }

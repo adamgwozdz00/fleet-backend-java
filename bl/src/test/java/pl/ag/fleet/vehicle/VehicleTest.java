@@ -30,11 +30,11 @@ class VehicleTest {
   }
 
   private void assertVehicleOverviewUndefined() {
-    assertEquals(Overview.initial(),vehicle.getOverview());
+    assertEquals(Overview.initial(), vehicle.getOverview());
   }
 
   private void assertVehicleInsuranceUndefined() {
-    assertEquals(Insurance.initial(),vehicle.getInsurance());
+    assertEquals(Insurance.initial(), vehicle.getInsurance());
   }
 
   @Test

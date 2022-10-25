@@ -1,6 +1,6 @@
 create table vehicle
 (
-    id                        BIGSERIAL PRIMARY KEY ,
+    id                        BIGSERIAL PRIMARY KEY,
     company_id                BIGINT,
     production_year           int4,
     fuel_type                 varchar(9),

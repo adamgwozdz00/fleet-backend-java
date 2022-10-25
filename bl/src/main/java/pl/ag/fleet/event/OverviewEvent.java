@@ -16,7 +16,7 @@ public class OverviewEvent implements Event {
   }
 
   @Override
-  public String getEventType() {
-    return this.getClass().getSimpleName();
+  public EventType getEventType() {
+    return EventType.OVERVIEW;
   }
 }

@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
-import pl.ag.fleet.kafka.shared.Event;
+import pl.ag.fleet.kafka.producer.Event;
 
 @Component
 @RequiredArgsConstructor
@@ -14,7 +14,7 @@ public class EventConsumer {
 
   @KafkaListener(topics = "${kafka.events.topic}")
   void listen(ConsumerRecord<String, Event> record) {
-    this.service.process(new EventDTO(record.value().getEventType(),record.value().getData()));
+    this.service.process(new EventDTO(record.value().getEventType(), record.value().getData()));
   }
 
 }

@@ -11,7 +11,7 @@ import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
-import pl.ag.fleet.kafka.shared.Event;
+import pl.ag.fleet.kafka.producer.Event;
 
 @EnableKafka
 @Configuration

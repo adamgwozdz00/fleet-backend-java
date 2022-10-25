@@ -21,7 +21,7 @@ public class ActualDataEvent implements Event {
   }
 
   @Override
-  public String getEventType() {
-    return this.getClass().getSimpleName();
+  public EventType getEventType() {
+    return EventType.ACTUAL_VEHICLE_DATA;
   }
 }

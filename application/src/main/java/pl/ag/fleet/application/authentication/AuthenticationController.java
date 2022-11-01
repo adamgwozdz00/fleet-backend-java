@@ -2,7 +2,6 @@ package pl.ag.fleet.application.authentication;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +19,6 @@ public class AuthenticationController {
   public AuthenticationResponse login(@RequestBody LoginRequest loginRequest) {
     val result = this.service.authenticate(
         new LoginDetails(loginRequest.getUsername(), loginRequest.getPassword()));
-    return new AuthenticationResponse(result.getToken(),result.getRole());
+    return new AuthenticationResponse(result.getToken(), result.getRole());
   }
 }

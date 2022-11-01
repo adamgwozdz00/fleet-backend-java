@@ -30,11 +30,12 @@ class VehicleTest {
   }
 
   private void assertVehicleOverviewUndefined() {
-    assertEquals(Overview.initial(), vehicle.getOverview());
+    System.out.println(vehicle.getOverview());
+    assertEquals("undefined", vehicle.getOverview().getName());
   }
 
   private void assertVehicleInsuranceUndefined() {
-    assertEquals(Insurance.initial(), vehicle.getInsurance());
+    assertEquals("undefined", vehicle.getInsurance().getName());
   }
 
   @Test
@@ -110,13 +111,14 @@ class VehicleTest {
 
   private void updateVehicle(String insuranceName, String expirationDate, double cost) {
     this.vehicle.updateInsurance(
-        new Insurance(insuranceName, LocalDate.parse(expirationDate), BigDecimal.valueOf(cost)));
+        new Insurance(insuranceName, LocalDate.parse(expirationDate), BigDecimal.valueOf(cost),
+            vehicle.getId()));
   }
 
   private void updateVehicle(long driverId, double fuelInLiters, double kilometers) {
     this.vehicle.updateState(
         new VehicleState(new DriverId(driverId), new Liters(BigDecimal.valueOf(fuelInLiters)),
-            new Kilometers(BigDecimal.valueOf(kilometers))));
+            new Kilometers(BigDecimal.valueOf(kilometers)), vehicle.getId()));
   }
 
   private void assertVehicleActualKilometers(double kilometers) {

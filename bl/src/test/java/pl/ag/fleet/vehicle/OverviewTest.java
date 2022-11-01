@@ -43,7 +43,7 @@ class OverviewTest {
   }
 
   private void undefinedOverview() {
-    actualOverview = Overview.initial();
+    actualOverview = Overview.initial(new VehicleId("1"));
   }
 
   @Test
@@ -58,11 +58,13 @@ class OverviewTest {
 
   private void validateNewOverviewWithExpirationDate(String expirationDate) {
     newOverview = actualOverview.validateAndReturn(
-        new Overview("", LocalDate.parse(expirationDate), BigDecimal.valueOf(100), ""));
+        new Overview("", LocalDate.parse(expirationDate), BigDecimal.valueOf(100), "",
+            new VehicleId("1")));
   }
 
   private void overviewWithExpirationDate(String expirationDate) {
-    actualOverview = new Overview("", LocalDate.parse(expirationDate), BigDecimal.valueOf(100), "");
+    actualOverview = new Overview("", LocalDate.parse(expirationDate), BigDecimal.valueOf(100), "",
+        new VehicleId("1"));
   }
 
   private void assertNewOverviewIsValid() {

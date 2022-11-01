@@ -7,5 +7,5 @@ public class AuthResult {
 
   private boolean success;
   private String token;
-  private String username;
+  private String role;
 }

@@ -17,7 +17,7 @@ public class SecurityService {
     val user = repository.findByUsername(new Username(details.getUsername())).orElseThrow();
     if (user.isPasswordMatches(new Password(details.getPassword()), encoder)) {
       return new AuthResult(true, tokenService.generateToken(details.getUsername()).getToken(),
-          details.getUsername());
+          user.getRole());
     }
     return new AuthResult(false, "", "");
   }

@@ -16,6 +16,7 @@ class User {
   private Username username;
 
   private Password password;
+  private String role;
 
   boolean isPasswordMatches(Password password, PasswordEncoder encoder) {
     return encoder.matches(password.getPassword(), this.password.getPassword());

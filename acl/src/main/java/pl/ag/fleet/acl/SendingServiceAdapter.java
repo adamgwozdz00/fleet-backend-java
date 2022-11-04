@@ -1,11 +1,13 @@
 package pl.ag.fleet.acl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
 import org.springframework.stereotype.Component;
 import pl.ag.fleet.event.EventDTO;
 import pl.ag.fleet.event.SendingService;
-import pl.ag.fleet.kafka.producer.Event;
+import pl.ag.fleet.kafka.Event;
 import pl.ag.fleet.kafka.producer.EventProducer;
 
 @Component
@@ -13,10 +15,11 @@ import pl.ag.fleet.kafka.producer.EventProducer;
 public class SendingServiceAdapter implements SendingService {
 
   private final EventProducer eventProducer;
+  private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
+
 
   @Override
-  public void send(EventDTO dto) {
-    val event = new Event(dto.getEventType().getEventType(), dto.getData());
-    this.eventProducer.send(event);
+  public void send(EventDTO event) {
+    this.eventProducer.send(new Event(mapper.convertValue(event, Map.class)));
   }
 }

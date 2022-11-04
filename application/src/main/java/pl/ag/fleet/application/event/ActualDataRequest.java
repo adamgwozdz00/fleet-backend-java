@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ActualDataRequest {
 
-  private Long vehicleId;
+  private String vehicleId;
   private Long driverId;
   private BigDecimal fuelStateInLiters;
   private BigDecimal kilometersState;

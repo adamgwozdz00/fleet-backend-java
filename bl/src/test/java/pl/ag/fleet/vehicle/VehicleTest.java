@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 import pl.ag.fleet.common.FuelType;
 
@@ -118,7 +119,7 @@ class VehicleTest {
   private void updateVehicle(long driverId, double fuelInLiters, double kilometers) {
     this.vehicle.updateState(
         new VehicleState(new DriverId(driverId), new Liters(BigDecimal.valueOf(fuelInLiters)),
-            new Kilometers(BigDecimal.valueOf(kilometers)), vehicle.getId()));
+            new Kilometers(BigDecimal.valueOf(kilometers)), LocalDateTime.now(),vehicle.getId()));
   }
 
   private void assertVehicleActualKilometers(double kilometers) {

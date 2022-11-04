@@ -19,43 +19,43 @@ public class VehicleService {
   public void updateVehicleState(VehicleId vehicleId, VehicleStateDTO state) {
     val vehicle = this.vehicleRepository.load(vehicleId);
 
-    if (exists(vehicle)) {
-      vehicle.updateState(
-          new VehicleState(new DriverId(state.getDriverId()), new Liters(state.getLiters()),
-              new Kilometers(state.getKilometers()), vehicleId));
-
-      this.vehicleRepository.save(vehicle);
+    if (!exists(vehicle)) {
+      throw new IllegalStateException("Vehicle not exists");
     }
+    vehicle.updateState(
+        new VehicleState(new DriverId(state.getDriverId()), new Liters(state.getLiters()),
+            new Kilometers(state.getKilometers()), state.getTime(), vehicleId));
 
-    throw new IllegalStateException("Vehicle not exists");
+    this.vehicleRepository.save(vehicle);
+
   }
 
   public void addOrUpdateInsurance(VehicleId vehicleId, InsuranceDTO insurance) {
     val vehicle = this.vehicleRepository.load(vehicleId);
 
-    if (exists(vehicle)) {
-      vehicle.updateInsurance(
-          new Insurance(insurance.getInsuranceTitle(), insurance.getExpirationDate(),
-              insurance.getCost(), vehicleId));
-
-      this.vehicleRepository.save(vehicle);
+    if (!exists(vehicle)) {
+      throw new IllegalStateException("Vehicle not exists");
     }
+    vehicle.updateInsurance(
+        new Insurance(insurance.getInsuranceTitle(), insurance.getExpirationDate(),
+            insurance.getCost(), vehicleId));
 
-    throw new IllegalStateException("Vehicle not exists");
+    this.vehicleRepository.save(vehicle);
+
   }
 
   public void addOrUpdateOverview(VehicleId vehicleId, OverviewDTO overview) {
     val vehicle = this.vehicleRepository.load(vehicleId);
 
-    if (exists(vehicle)) {
-      vehicle.updateOverview(
-          new Overview(overview.getOverviewTitle(), overview.getExpirationDate(),
-              overview.getCost(), overview.getDescription(), vehicleId));
-
-      this.vehicleRepository.save(vehicle);
+    if (!exists(vehicle)) {
+      throw new IllegalStateException("Vehicle not exists");
     }
 
-    throw new IllegalStateException("Vehicle not exists");
+    vehicle.updateOverview(
+        new Overview(overview.getOverviewTitle(), overview.getExpirationDate(),
+            overview.getCost(), overview.getDescription(), vehicleId));
+
+    this.vehicleRepository.save(vehicle);
   }
 
   private boolean exists(Vehicle vehicle) {

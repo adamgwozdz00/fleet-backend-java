@@ -1,6 +1,7 @@
 package pl.ag.fleet.vehicle;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -26,19 +27,22 @@ class VehicleState {
   private DriverId actualDriver;
   private Liters actualFuel;
   private Kilometers actualKilometers;
+  private LocalDateTime time;
   @Embedded
   private VehicleId vehicleId;
 
+
   public VehicleState(DriverId actualDriver, Liters actualFuel, Kilometers actualKilometers,
-      VehicleId vehicleId) {
+      LocalDateTime time, VehicleId vehicleId) {
     this.actualDriver = actualDriver;
     this.actualFuel = actualFuel;
     this.actualKilometers = actualKilometers;
+    this.time = time;
     this.vehicleId = vehicleId;
   }
 
   static VehicleState initial(VehicleId vehicleId) {
     return new VehicleState(null, new Liters(BigDecimal.ZERO), new Kilometers(BigDecimal.ZERO),
-        vehicleId);
+        LocalDateTime.now(), vehicleId);
   }
 }

@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class RefuelEventRequest {
 
-  private Long vehicleId;
+  private String vehicleId;
   private BigDecimal liters;
   private BigDecimal cost;
 }

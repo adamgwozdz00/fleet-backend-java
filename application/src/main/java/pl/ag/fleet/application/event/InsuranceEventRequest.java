@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class InsuranceEventRequest {
 
-  private Long vehicleId;
+  private String vehicleId;
   private String name;
   private LocalDate expirationDate;
   private BigDecimal cost;

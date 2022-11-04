@@ -8,25 +8,10 @@ import org.springframework.stereotype.Service;
 public class EventService {
 
   private final SendingService sendingService;
-  private final EventFactory factory;
+  private final EventDTOFactory factory;
 
-  public void process(CreateVehicleEvent event) {
-    sendingService.send(factory.createEvent(event));
-  }
 
-  public void process(ActualDataEvent event) {
-    sendingService.send(factory.createEvent(event));
-  }
-
-  public void process(RefuelEvent event) {
-    sendingService.send(factory.createEvent(event));
-  }
-
-  public void process(OverviewEvent event) {
-    sendingService.send(factory.createEvent(event));
-  }
-
-  public void process(InsuranceEvent event) {
-    sendingService.send(factory.createEvent(event));
+  public  void process(Event event){
+    sendingService.send(factory.create(event));
   }
 }

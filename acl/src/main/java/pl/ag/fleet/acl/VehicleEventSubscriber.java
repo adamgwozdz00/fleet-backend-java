@@ -1,37 +1,54 @@
 package pl.ag.fleet.acl;
 
-import java.util.Map;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Component;
 import pl.ag.fleet.common.FuelType;
-import pl.ag.fleet.event.EventDTO;
 import pl.ag.fleet.event.EventSubscriber;
-import pl.ag.fleet.event.EventType;
+import pl.ag.fleet.event.ObservableEvent;
 import pl.ag.fleet.vehicle.VehicleDTO;
+import pl.ag.fleet.vehicle.VehicleId;
 import pl.ag.fleet.vehicle.VehicleService;
+import pl.ag.fleet.vehicle.VehicleStateDTO;
 
 @Component
 @RequiredArgsConstructor
 public class VehicleEventSubscriber implements EventSubscriber {
 
   private final VehicleService vehicleService;
+  private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
-  // TODO simplify VV
+
   @Override
-  public void subscribe(EventDTO data) {
-    if (data.getEventType() == EventType.CREATE_VEHICLE) {
-      val map = data.getData();
-      val companyId = (Integer) ((Map<String, Object>) map.get("companyId")).get("id");
-      val make = (String) ((Map<String, Object>) map.get("make")).get("make");
-      val model = (String) ((Map<String, Object>) map.get("model")).get("model");
-      val productionYear = (Integer) ((Map<String, Object>) map.get("productionYear")).get("year");
-      val fuelType = (String) map.get("fuelType");
-      val vinNumber = (String) ((Map<String, Object>) map.get("vinNumber")).get("vinNumber");
-      val vehicleDTO = new VehicleDTO(companyId.longValue(), make, model, productionYear,
-          FuelType.valueOf(fuelType), vinNumber);
-      this.vehicleService.createVehicle(vehicleDTO);
+  public void subscribe(ObservableEvent observableEvent) {
+    val data = mapper.valueToTree(observableEvent.getData());
+    switch (observableEvent.getEventType()) {
+      case CREATE_VEHICLE:
+        val vehicleDTO = new VehicleDTO(data.get("companyId").asLong(),
+            data.get("make").asText(),
+            data.get("model").asText(),
+            data.get("productionYear").asInt(),
+            FuelType.valueOf(data.get("fuelType").asText().toUpperCase()),
+            data.get("vinNumber").asText());
+        this.vehicleService.createVehicle(vehicleDTO);
+        return;
+
+      case ACTUAL_VEHICLE_DATA:
+
+        val vehicleId = new VehicleId(data.get("vehicleId").asText());
+        val state = new VehicleStateDTO(data.get("driverId").asLong(),
+            BigDecimal.valueOf(data.get("liters").asDouble()),
+            BigDecimal.valueOf(data.get("kilometers").asDouble()),
+            mapper.convertValue(observableEvent.getData().get("eventTime"), LocalDateTime.class));
+        this.vehicleService.updateVehicleState(vehicleId, state);
+
     }
+
+
   }
 
   @Override

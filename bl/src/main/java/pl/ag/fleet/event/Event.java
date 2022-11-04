@@ -1,6 +1,17 @@
 package pl.ag.fleet.event;
 
-public interface Event {
+import lombok.Value;
 
-  EventType getEventType();
+@Value
+public class Event<T extends EventData> {
+
+  private EventTime time;
+
+  private T eventData;
+
+  public Event(T eventData) {
+    this.time = new EventTime();
+    this.eventData = eventData;
+  }
+
 }

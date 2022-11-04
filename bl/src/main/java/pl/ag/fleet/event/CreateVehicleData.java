@@ -1,10 +1,12 @@
 package pl.ag.fleet.event;
 
+import lombok.EqualsAndHashCode;
 import lombok.Value;
 import pl.ag.fleet.common.FuelType;
 
 @Value
-public class CreateVehicleEvent implements Event {
+@EqualsAndHashCode(callSuper = true)
+public class CreateVehicleData extends EventData {
 
   private VinNumber vinNumber;
   private CompanyId companyId;
@@ -12,21 +14,16 @@ public class CreateVehicleEvent implements Event {
   private Model model;
   private ProductionYear productionYear;
   private FuelType fuelType;
-  private EventTime time;
 
-  public CreateVehicleEvent(VinNumber vinNumber, CompanyId companyId, Make make, Model model,
+  public CreateVehicleData(VinNumber vinNumber, CompanyId companyId, Make make, Model model,
       ProductionYear productionYear, FuelType fuelType) {
+    super(EventType.CREATE_VEHICLE);
     this.vinNumber = vinNumber;
     this.companyId = companyId;
     this.make = make;
     this.model = model;
     this.productionYear = productionYear;
     this.fuelType = fuelType;
-    this.time = new EventTime();
   }
 
-  @Override
-  public EventType getEventType() {
-    return EventType.CREATE_VEHICLE;
-  }
 }

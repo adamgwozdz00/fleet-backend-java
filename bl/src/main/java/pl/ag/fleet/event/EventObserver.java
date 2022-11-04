@@ -15,8 +15,8 @@ public class EventObserver {
     this.subscribers.put(subscriber.getName(), subscriber);
   }
 
-  public void observe(EventDTO eventDTO) {
-    this.subscribers.values().forEach(sub -> sub.subscribe(eventDTO));
+  public void observe(ObservableEvent observableEvent) {
+    this.subscribers.values().forEach(sub -> sub.subscribe(observableEvent));
   }
 
 }

@@ -5,5 +5,5 @@ import lombok.Value;
 @Value
 public class VehicleId {
 
-  private Long id;
+  private String id;
 }

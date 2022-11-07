@@ -1,0 +1,6 @@
+apply plugin: 'io.freefair.aspectj'
+
+dependencies {
+    implementation 'org.aspectj:aspectjrt:1.9.9.1'
+    runtimeOnly 'org.aspectj:aspectjweaver:1.9.9.1'
+}

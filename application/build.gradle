@@ -7,6 +7,7 @@ dependencies {
     implementation project(':kafka')
     implementation project(':flyway')
     implementation project(':security')
+    implementation project(':common')
 
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter', version: springBootVersion
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion

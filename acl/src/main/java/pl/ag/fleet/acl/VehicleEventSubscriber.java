@@ -15,12 +15,11 @@ import pl.ag.fleet.vehicle.VehicleId;
 import pl.ag.fleet.vehicle.VehicleService;
 import pl.ag.fleet.vehicle.VehicleStateDTO;
 
-@Component
 @RequiredArgsConstructor
 public class VehicleEventSubscriber implements EventSubscriber {
 
   private final VehicleService vehicleService;
-  private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
+  private final ObjectMapper mapper;
 
 
   @Override

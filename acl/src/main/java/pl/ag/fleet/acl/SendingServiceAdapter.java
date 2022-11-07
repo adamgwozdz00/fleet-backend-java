@@ -15,7 +15,7 @@ import pl.ag.fleet.kafka.producer.EventProducer;
 public class SendingServiceAdapter implements SendingService {
 
   private final EventProducer eventProducer;
-  private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
+  private final ObjectMapper mapper;
 
 
   @Override

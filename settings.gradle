@@ -15,4 +15,5 @@ include 'flyway'
 include 'security'
 include 'kafka'
 include 'acl'
+include 'common'
 

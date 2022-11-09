@@ -11,11 +11,6 @@ import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
-import org.springframework.kafka.core.KafkaOperations;
-import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.listener.CommonDelegatingErrorHandler;
-import org.springframework.kafka.listener.DeadLetterPublishingRecoverer;
-import org.springframework.kafka.listener.DefaultErrorHandler;
 import pl.ag.fleet.kafka.Event;
 
 @EnableKafka
@@ -26,7 +21,6 @@ public class KafkaConsumerConfig {
   private String servers;
   @Value("${kafka.group.id}")
   private String groupId;
-
 
 
   @Bean

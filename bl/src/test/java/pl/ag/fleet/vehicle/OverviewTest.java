@@ -31,22 +31,6 @@ class OverviewTest {
   }
 
   @Test
-  void testValidateNewOverviewWhenOverviewUndefined() {
-    // given
-    undefinedOverview();
-
-    // when
-    validateNewOverviewWithExpirationDate("2022-12-10");
-
-    // then
-    assertNewOverviewIsValid();
-  }
-
-  private void undefinedOverview() {
-    actualOverview = Overview.initial(new VehicleId("1"));
-  }
-
-  @Test
   void testValidateNewOverviewWhenItsExpirationDateIsBeforeActualOverview() {
     // given
     overviewWithExpirationDate("2022-10-15");

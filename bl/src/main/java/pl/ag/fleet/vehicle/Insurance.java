@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 @NoArgsConstructor
 @Getter
@@ -41,15 +42,7 @@ class Insurance {
     this.vehicleId = vehicleId;
   }
 
-  static Insurance initial(VehicleId vehicleId) {
-    return new Insurance(UNDEFINED, null, null, vehicleId);
-  }
-
-  Insurance validateAndReturn(Insurance newInsurance) {
-    if (this.name.equals(UNDEFINED)) {
-      return newInsurance;
-    }
-
+  Insurance validateAndReturn(@NonNull Insurance newInsurance) {
     if (newInsurance.expirationDate.isBefore(this.expirationDate)) {
       throw new RuntimeException("Insurance not valid, expires before actual insurance.");
     }

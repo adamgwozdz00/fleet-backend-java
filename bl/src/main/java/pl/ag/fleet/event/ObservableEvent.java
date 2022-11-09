@@ -5,6 +5,7 @@ import lombok.Value;
 
 @Value
 public class ObservableEvent {
+
   private EventType eventType;
-  private Map<String,Object> data;
+  private Map<String, Object> data;
 }

@@ -1,4 +1,5 @@
 dependencies {
     implementation project(':kafka')
     implementation project(':bl')
+    implementation project(':db')
 }

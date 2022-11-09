@@ -1,4 +1,4 @@
-package pl.ag.fleet.acl;
+package pl.ag.fleet.acl.event;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

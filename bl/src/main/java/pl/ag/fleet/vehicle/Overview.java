@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 @NoArgsConstructor
 @Getter
@@ -42,14 +43,7 @@ class Overview {
     this.vehicleId = vehicleId;
   }
 
-  static Overview initial(VehicleId vehicleId) {
-    return new Overview(UNDEFINED, null, null, "", vehicleId);
-  }
-
-  Overview validateAndReturn(Overview newOverview) {
-    if (this.name.equals(UNDEFINED)) {
-      return newOverview;
-    }
+  Overview validateAndReturn(@NonNull Overview newOverview) {
     if (newOverview.expirationDate.isBefore(this.expirationDate)) {
       throw new RuntimeException("Overview not valid, expires before actual overview.");
     }

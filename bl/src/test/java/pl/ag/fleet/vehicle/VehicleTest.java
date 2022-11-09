@@ -23,20 +23,9 @@ class VehicleTest {
     createVehicle("Ford Focus");
 
     // then
-    assertVehicleActualDriverUndefined();
+    assertVehicleStateUndefined();
     assertVehicleInsuranceUndefined();
     assertVehicleOverviewUndefined();
-    assertVehicleActualFuel(0);
-    assertVehicleActualKilometers(0);
-  }
-
-  private void assertVehicleOverviewUndefined() {
-    System.out.println(vehicle.getOverview());
-    assertEquals("undefined", vehicle.getOverview().getName());
-  }
-
-  private void assertVehicleInsuranceUndefined() {
-    assertEquals("undefined", vehicle.getInsurance().getName());
   }
 
   @Test
@@ -119,7 +108,7 @@ class VehicleTest {
   private void updateVehicle(long driverId, double fuelInLiters, double kilometers) {
     this.vehicle.updateState(
         new VehicleState(new DriverId(driverId), new Liters(BigDecimal.valueOf(fuelInLiters)),
-            new Kilometers(BigDecimal.valueOf(kilometers)), LocalDateTime.now(),vehicle.getId()));
+            new Kilometers(BigDecimal.valueOf(kilometers)), LocalDateTime.now(), vehicle.getId()));
   }
 
   private void assertVehicleActualKilometers(double kilometers) {
@@ -131,13 +120,21 @@ class VehicleTest {
     assertEquals(fuelInLiters, vehicle.getState().getActualFuel().getLiters().doubleValue());
   }
 
-  private void assertVehicleActualDriverUndefined() {
-    assertNull(vehicle.getState().getActualDriver());
+  private void assertVehicleStateUndefined() {
+    assertNull(vehicle.getState());
   }
 
   private void createVehicle(String vehicle) {
     this.vehicle = new Vehicle(new CompanyId(1L),
         new VehicleDetails(vehicle, vehicle, 2020, FuelType.DIESEL, "4S3BL626467206698"));
+  }
+
+  private void assertVehicleOverviewUndefined() {
+    assertNull(vehicle.getOverview());
+  }
+
+  private void assertVehicleInsuranceUndefined() {
+    assertNull(vehicle.getInsurance());
   }
 
 }

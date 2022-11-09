@@ -1,7 +1,6 @@
 package pl.ag.fleet.timemeasure;
 
 import java.util.logging.Logger;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;

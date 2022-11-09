@@ -9,8 +9,8 @@ public class Main {
 
   public static void main(String[] args) {
     AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
-       );
-    context.scan( "pl.ag.fleet.timemeasure");
+    );
+    context.scan("pl.ag.fleet.timemeasure");
     context.refresh();
     var mock = context.getBean(MockClassWithTimerAnnotation.class);
     mock.doSomething();

@@ -38,9 +38,6 @@ public class Vehicle {
     this.id = new VehicleId();
     this.companyId = companyId;
     this.details = details;
-    this.state = VehicleState.initial(this.id);
-    this.overview = Overview.initial(this.id);
-    this.insurance = Insurance.initial(this.id);
   }
 
   void updateState(VehicleState state) {
@@ -49,14 +46,25 @@ public class Vehicle {
   }
 
   void updateOverview(Overview overview) {
+    if (this.overview == null) {
+      this.overview = overview;
+      return;
+    }
     this.overview = this.overview.validateAndReturn(overview);
   }
 
   void updateInsurance(Insurance insurance) {
+    if (this.insurance == null) {
+      this.insurance = insurance;
+      return;
+    }
     this.insurance = this.insurance.validateAndReturn(insurance);
   }
 
   private void vetoIfIncorrect(VehicleState state) {
+    if (this.state == null) {
+      return;
+    }
     if (this.state.getActualKilometers().isLessOrEqualThan(state.getActualKilometers())) {
       return;
     }

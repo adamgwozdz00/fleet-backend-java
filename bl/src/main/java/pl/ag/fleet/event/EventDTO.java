@@ -1,10 +1,8 @@
 package pl.ag.fleet.event;
 
 import java.time.LocalDateTime;
-import java.util.Map;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Value;
+
 @Getter
 public abstract class EventDTO {
 

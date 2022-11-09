@@ -11,7 +11,7 @@ public class EventService {
   private final EventDTOFactory factory;
 
 
-  public  void process(Event event){
+  public void process(Event event) {
     sendingService.send(factory.create(event));
   }
 }

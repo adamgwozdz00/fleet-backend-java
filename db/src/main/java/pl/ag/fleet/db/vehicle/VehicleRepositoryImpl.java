@@ -8,7 +8,6 @@ import pl.ag.fleet.vehicle.VehicleRepository;
 
 @Repository
 @RequiredArgsConstructor
-
 public class VehicleRepositoryImpl implements VehicleRepository {
 
   private final VehicleJpa jpa;

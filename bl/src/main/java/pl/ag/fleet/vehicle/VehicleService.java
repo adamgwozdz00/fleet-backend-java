@@ -10,13 +10,13 @@ public class VehicleService {
 
   private final VehicleRepository vehicleRepository;
 
-  public void createVehicle(VehicleDTO vehicle) {
+  public synchronized void createVehicle(VehicleDTO vehicle) {
     this.vehicleRepository.save(new Vehicle(new CompanyId(vehicle.getCompanyId()),
         new VehicleDetails(vehicle.getMake(), vehicle.getModel(), vehicle.getProductionYear(),
             vehicle.getFuelType(), vehicle.getVinNumber())));
   }
 
-  public void updateVehicleState(VehicleId vehicleId, VehicleStateDTO state) {
+  public synchronized void updateVehicleState(VehicleId vehicleId, VehicleStateDTO state) {
     val vehicle = this.vehicleRepository.load(vehicleId);
 
     if (!exists(vehicle)) {
@@ -30,7 +30,7 @@ public class VehicleService {
 
   }
 
-  public void addOrUpdateInsurance(VehicleId vehicleId, InsuranceDTO insurance) {
+  public synchronized void addOrUpdateInsurance(VehicleId vehicleId, InsuranceDTO insurance) {
     val vehicle = this.vehicleRepository.load(vehicleId);
 
     if (!exists(vehicle)) {
@@ -44,7 +44,7 @@ public class VehicleService {
 
   }
 
-  public void addOrUpdateOverview(VehicleId vehicleId, OverviewDTO overview) {
+  public synchronized void addOrUpdateOverview(VehicleId vehicleId, OverviewDTO overview) {
     val vehicle = this.vehicleRepository.load(vehicleId);
 
     if (!exists(vehicle)) {

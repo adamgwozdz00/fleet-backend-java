@@ -1,20 +1,27 @@
 package pl.ag.fleet.vehicle;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pl.ag.fleet.common.FuelType;
+import pl.ag.fleet.vehicle.MockVehicleRepository.SaveLoadEvent;
 
 class VehicleServiceTest {
 
   private MockVehicleRepository repository;
   private VehicleService service;
+  private ExecutorService executor;
+  private int numberOfThreads;
 
   @BeforeEach
   void setUp() {
@@ -103,6 +110,60 @@ class VehicleServiceTest {
 
     // then
     assertNumberOfVehicles(0);
+  }
+
+  @Test
+  void testSynchronizationOfMethod() {
+    // given
+    threadsOfService(100);
+
+    // then
+    executeServiceMethodsConcurrent();
+
+    // then
+    assertMethodsSynchronized();
+  }
+
+  private void assertMethodsSynchronized() {
+    var expect = repository.events.get(0);
+
+    for (var event : repository.events) {
+      assertEquals(expect, event);
+      switch (event) {
+        case END:
+          expect = SaveLoadEvent.START;
+          break;
+        case START:
+          expect = SaveLoadEvent.END;
+          break;
+      }
+    }
+  }
+
+  private void executeServiceMethodsConcurrent() {
+    var vehicleId = new VehicleId("123");
+    this.databaseWithVehicleId(vehicleId.getVehicleId());
+
+    for (int i = 0; i < numberOfThreads; i++) {
+
+      executor.execute(() -> service.updateVehicleState(vehicleId,
+          new VehicleStateDTO(1L, BigDecimal.valueOf(55), BigDecimal.valueOf(100000),
+              LocalDateTime.now())));
+
+    }
+    executor.shutdown();
+    try {
+      if (!executor.awaitTermination(800, TimeUnit.MILLISECONDS)) {
+        executor.shutdownNow();
+      }
+    } catch (InterruptedException e) {
+      executor.shutdownNow();
+    }
+  }
+
+  private void threadsOfService(int numberOfThreads) {
+    this.numberOfThreads = numberOfThreads;
+    executor = Executors.newFixedThreadPool(numberOfThreads);
   }
 
   private void addOrUpdateOverview(String vehicleId) {

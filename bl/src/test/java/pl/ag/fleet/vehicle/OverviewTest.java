@@ -31,12 +31,12 @@ class OverviewTest {
   }
 
   @Test
-  void testValidateNewOverviewWhenItsExpirationDateIsBeforeActualOverview() {
+  void testValidateNewOverviewWhenItsExpirationDateIsBeforeOrEqualActualOverview() {
     // given
     overviewWithExpirationDate("2022-10-15");
 
     // when
-    assertThrows(RuntimeException.class, () -> validateNewOverviewWithExpirationDate("2022-09-10"));
+    assertThrows(RuntimeException.class, () -> validateNewOverviewWithExpirationDate("2022-10-15"));
 
   }
 

@@ -31,15 +31,16 @@ class InsuranceTest {
   }
 
   @Test
-  void testValidateNewInsuranceWhenItsExpirationDateIsBeforeActualInsurance() {
+  void testValidateNewInsuranceWhenItsExpirationDateIsBeforeOrEqualActualInsurance() {
     // given
     insuranceWithExpirationDate("2022-10-15");
 
     // when
     assertThrows(RuntimeException.class,
-        () -> validateNewInsuranceWithExpirationDate("2022-09-10"));
+        () -> validateNewInsuranceWithExpirationDate("2022-10-15"));
 
   }
+
 
   private void validateNewInsuranceWithExpirationDate(String expirationDate) {
     newInsurance = actualInsurance.validateAndReturn(

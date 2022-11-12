@@ -43,9 +43,9 @@ class Insurance {
   }
 
   Insurance validateAndReturn(@NonNull Insurance newInsurance) {
-    if (newInsurance.expirationDate.isBefore(this.expirationDate)) {
-      throw new RuntimeException("Insurance not valid, expires before actual insurance.");
+    if (newInsurance.expirationDate.isAfter(this.expirationDate)) {
+      return newInsurance;
     }
-    return newInsurance;
+    throw new RuntimeException("Insurance not valid, expires before actual insurance.");
   }
 }

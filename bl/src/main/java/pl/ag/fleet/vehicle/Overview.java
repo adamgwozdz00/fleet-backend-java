@@ -44,9 +44,9 @@ class Overview {
   }
 
   Overview validateAndReturn(@NonNull Overview newOverview) {
-    if (newOverview.expirationDate.isBefore(this.expirationDate)) {
-      throw new RuntimeException("Overview not valid, expires before actual overview.");
+    if (newOverview.expirationDate.isAfter(this.expirationDate)) {
+      return newOverview;
     }
-    return newOverview;
+    throw new RuntimeException("Overview not valid, expires before actual overview.");
   }
 }

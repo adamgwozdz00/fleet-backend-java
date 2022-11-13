@@ -10,9 +10,9 @@ class Token {
 
   private String token;
 
-  static Token createToken(String username, String secret, long expiresAfter) {
+  static Token createToken(TokenPayload payload, String secret, long expiresAfter) {
     return new Token(JWT.create()
-        .withSubject(username)
+        .withPayload(payload.toClaims())
         .withExpiresAt(new Date(System.currentTimeMillis() + expiresAfter))
         .sign(Algorithm.HMAC256(secret)));
   }

@@ -15,8 +15,10 @@ class TokenService {
   @Value("${secret}")
   private String secret;
 
-  Token generateToken(String username) {
-    val user = repository.findByUsername(new Username(username)).orElseThrow();
-    return Token.createToken(user.getUsername().getUsername(), secret, expiresAfter);
+  Token generateToken(Username username) {
+    val user = repository.findBy(username).orElseThrow();
+    val payload = new TokenPayload(user.getUserId().getId(), user.getRole(),
+        user.getCompanyId().getCompanyId());
+    return Token.createToken(payload, secret, expiresAfter);
   }
 }

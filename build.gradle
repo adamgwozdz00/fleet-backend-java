@@ -11,6 +11,7 @@ version '1.0-SNAPSHOT'
 ext {
     springVersion = '5.3.21'
     springBootVersion = '2.7.1'
+    postgresVersion = '42.4.1'
 }
 
 

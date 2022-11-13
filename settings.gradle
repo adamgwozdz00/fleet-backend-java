@@ -16,5 +16,6 @@ include 'security'
 include 'kafka'
 include 'acl'
 include 'common'
+include 'jooq'
 include 'query'
 

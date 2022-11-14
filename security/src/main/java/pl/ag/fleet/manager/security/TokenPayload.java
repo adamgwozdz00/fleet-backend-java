@@ -13,7 +13,7 @@ public class TokenPayload {
   private Long companyId;
 
   Map<String, ?> toClaims() {
-    val payloadClaims = new HashMap<String,Object>();
+    val payloadClaims = new HashMap<String, Object>();
     payloadClaims.put("userId", userId);
     payloadClaims.put("role", role);
     payloadClaims.put("companyId", companyId);

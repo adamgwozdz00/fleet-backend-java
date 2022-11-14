@@ -3,8 +3,9 @@ package pl.ag.fleet.manager.security;
 import lombok.Value;
 
 @Value
-public class JWTDecodedUser {
+public class PrincipalData {
+
   private String userId;
-  private String role;
   private Long companyId;
+  private String role;
 }

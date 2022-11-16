@@ -4,6 +4,8 @@
 package pl.ag.fleet;
 
 
+import pl.ag.fleet.tables.Company;
+import pl.ag.fleet.tables.Driver;
 import pl.ag.fleet.tables.Insurance;
 import pl.ag.fleet.tables.Overview;
 import pl.ag.fleet.tables.ReFuel;
@@ -16,6 +18,16 @@ import pl.ag.fleet.tables.VehicleState;
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tables {
+
+    /**
+     * The table <code>fleet.company</code>.
+     */
+    public static final Company COMPANY = Company.COMPANY;
+
+    /**
+     * The table <code>fleet.driver</code>.
+     */
+    public static final Driver DRIVER = Driver.DRIVER;
 
     /**
      * The table <code>fleet.insurance</code>.

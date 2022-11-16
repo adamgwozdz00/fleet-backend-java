@@ -11,6 +11,7 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.Internal;
 
+import pl.ag.fleet.tables.Driver;
 import pl.ag.fleet.tables.Insurance;
 import pl.ag.fleet.tables.Overview;
 import pl.ag.fleet.tables.ReFuel;
@@ -29,6 +30,7 @@ public class Keys {
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final UniqueKey<Record> DRIVER_PKEY = Internal.createUniqueKey(Driver.DRIVER, DSL.name("driver_pkey"), new TableField[] { Driver.DRIVER.ID }, true);
     public static final UniqueKey<Record> INSURANCE_PKEY = Internal.createUniqueKey(Insurance.INSURANCE, DSL.name("insurance_pkey"), new TableField[] { Insurance.INSURANCE.ID }, true);
     public static final UniqueKey<Record> OVERVIEW_PKEY = Internal.createUniqueKey(Overview.OVERVIEW, DSL.name("overview_pkey"), new TableField[] { Overview.OVERVIEW.ID }, true);
     public static final UniqueKey<Record> RE_FUEL_PKEY = Internal.createUniqueKey(ReFuel.RE_FUEL, DSL.name("re_fuel_pkey"), new TableField[] { ReFuel.RE_FUEL.ID }, true);

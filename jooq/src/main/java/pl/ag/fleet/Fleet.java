@@ -11,6 +11,8 @@ import org.jooq.Catalog;
 import org.jooq.Table;
 import org.jooq.impl.SchemaImpl;
 
+import pl.ag.fleet.tables.Company;
+import pl.ag.fleet.tables.Driver;
 import pl.ag.fleet.tables.Insurance;
 import pl.ag.fleet.tables.Overview;
 import pl.ag.fleet.tables.ReFuel;
@@ -30,6 +32,16 @@ public class Fleet extends SchemaImpl {
      * The reference instance of <code>fleet</code>
      */
     public static final Fleet FLEET = new Fleet();
+
+    /**
+     * The table <code>fleet.company</code>.
+     */
+    public final Company COMPANY = Company.COMPANY;
+
+    /**
+     * The table <code>fleet.driver</code>.
+     */
+    public final Driver DRIVER = Driver.DRIVER;
 
     /**
      * The table <code>fleet.insurance</code>.
@@ -72,6 +84,8 @@ public class Fleet extends SchemaImpl {
     @Override
     public final List<Table<?>> getTables() {
         return Arrays.asList(
+            Company.COMPANY,
+            Driver.DRIVER,
             Insurance.INSURANCE,
             Overview.OVERVIEW,
             ReFuel.RE_FUEL,

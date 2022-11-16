@@ -59,7 +59,7 @@ public class Overview extends TableImpl<Record> {
     /**
      * The column <code>fleet.overview.overview_description</code>.
      */
-    public final TableField<Record, String> OVERVIEW_DESCRIPTION = createField(DSL.name("overview_description"), SQLDataType.VARCHAR(255), this, "");
+    public final TableField<Record, String> OVERVIEW_DESCRIPTION = createField(DSL.name("overview_description"), SQLDataType.CLOB, this, "");
 
     /**
      * The column <code>fleet.overview.overview_expiration_date</code>.

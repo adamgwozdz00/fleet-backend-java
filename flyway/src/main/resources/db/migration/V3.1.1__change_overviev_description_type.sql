@@ -1,0 +1,1 @@
+ALTER TABLE fleet.overview ALTER COLUMN overview_description TYPE TEXT;

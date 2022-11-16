@@ -1,18 +1,17 @@
 package pl.ag.fleet;
 
-import static pl.ag.fleet.Tables.VEHICLE;
-
 import javax.annotation.PostConstruct;
 import org.jooq.DSLContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import pl.ag.fleet.vehicle.VehicleDetailsDataProvider;
 
 @SpringBootApplication
 public class TestQuery {
 
   @Autowired
-  private DSLContext create;
+  private VehicleDetailsDataProvider detailsDataProvider;
 
   public static void main(String[] args) {
     SpringApplication.run(TestQuery.class, args);
@@ -20,12 +19,9 @@ public class TestQuery {
 
   @PostConstruct
   void testQuery(){
-    var result = create.select(VEHICLE.VEHICLE_ID,
-        VEHICLE.MAKE,
-        VEHICLE.MODEL,
-        VEHICLE.PRODUCTION_YEAR,
-        VEHICLE.FUEL_TYPE).from(VEHICLE);
-    result.stream().forEach(System.out::println);
-
+    detailsDataProvider.getDriverHistory("f9a2e373-e04c-45b8-a1ae-bea157dd7c0f")
+        .forEach(System.out::println);
+    detailsDataProvider.getInsuranceHistory("f97e07a3-0a8c-4d84-9b58-f3727866cafb")
+        .forEach(System.out::println);
   }
 }

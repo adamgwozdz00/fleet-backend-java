@@ -8,6 +8,7 @@ dependencies {
     implementation project(':flyway')
     implementation project(':security')
     implementation project(':common')
+    implementation project(':query')
 
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter', version: springBootVersion
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion

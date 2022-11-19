@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 import pl.ag.fleet.common.FuelType;
 
-class VehicleTest {
+class UserVehicleTest {
 
   private Vehicle vehicle;
 

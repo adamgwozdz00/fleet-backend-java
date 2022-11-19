@@ -29,4 +29,8 @@ public class VehicleProvider {
         .fetch()
         .into(VehicleRecord.class);
   }
+
+  public boolean isVehicleAvailable() {
+    throw new UnsupportedOperationException("Not implemented yet");
+  }
 }

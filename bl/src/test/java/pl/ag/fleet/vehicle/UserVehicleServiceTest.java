@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 import pl.ag.fleet.common.FuelType;
 import pl.ag.fleet.vehicle.MockVehicleRepository.SaveLoadEvent;
 
-class VehicleServiceTest {
+class UserVehicleServiceTest {
 
   private MockVehicleRepository repository;
   private VehicleService service;

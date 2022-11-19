@@ -10,9 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(schema = "fleet", name = "company_user")
+@NoArgsConstructor
 public class User {
 
   @Id
@@ -32,10 +34,10 @@ public class User {
 
   Result add(VehicleId vehicle, VehicleAvailabilityService availabilityService) {
     if (availabilityService.isAvailable(vehicle)) {
-      return Result.createFail();
+      this.vehicles.add(new UserVehicle(vehicle));
+      return Result.createSuccess();
     }
-    this.vehicles.add(new UserVehicle(vehicle));
-    return Result.createSuccess();
+    return Result.createFail();
   }
 
   void remove(VehicleId vehicle) {

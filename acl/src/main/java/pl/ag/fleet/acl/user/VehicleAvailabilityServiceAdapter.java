@@ -10,10 +10,10 @@ import pl.ag.fleet.vehicle.VehicleProvider;
 @RequiredArgsConstructor
 public class VehicleAvailabilityServiceAdapter implements VehicleAvailabilityService {
 
-  private VehicleProvider vehicleProvider;
+  private final VehicleProvider vehicleProvider;
 
   @Override
   public boolean isAvailable(VehicleId vehicleId) {
-    return vehicleProvider.isVehicleAvailable();
+    return vehicleProvider.isVehicleAvailable(vehicleId.getVehicleId());
   }
 }

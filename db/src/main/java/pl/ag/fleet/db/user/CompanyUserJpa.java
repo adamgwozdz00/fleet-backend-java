@@ -7,8 +7,8 @@ import pl.ag.fleet.user.User;
 import pl.ag.fleet.user.UserId;
 
 @Repository
-public interface CompanyUserJpa extends JpaRepository<User, UserId> {
+public interface CompanyUserJpa extends JpaRepository<User, Long> {
 
-  @Override
-  Optional<User> findById(UserId userId);
+  Optional<User> findByUserId(UserId userId);
+
 }

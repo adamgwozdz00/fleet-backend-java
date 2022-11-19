@@ -44,10 +44,10 @@ jooq {
                         immutablePojos = false
                         fluentSetters = false
                     }
-                    target {
-                        packageName= 'pl.ag.fleet'
-                        directory = 'src/main/java'
-                    }
+//                    target {
+//                        packageName= 'pl.ag.fleet'
+//                        directory = 'src/main/java'
+//                    }
                     strategy.name = "org.jooq.codegen.DefaultGeneratorStrategy"
                 }
             }

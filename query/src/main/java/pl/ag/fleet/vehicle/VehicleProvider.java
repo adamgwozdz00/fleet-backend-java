@@ -1,10 +1,13 @@
 package pl.ag.fleet.vehicle;
 
+import static org.jooq.generated.Tables.USER_VEHICLE;
 import static pl.ag.fleet.Tables.VEHICLE;
 import static pl.ag.fleet.Tables.VEHICLE_STATE;
 
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import lombok.val;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +33,21 @@ public class VehicleProvider {
         .into(VehicleRecord.class);
   }
 
-  public boolean isVehicleAvailable() {
-    throw new UnsupportedOperationException("Not implemented yet");
+  public boolean isVehicleAvailable(String vehicleId) {
+    if (!isVehicleExists(vehicleId)) {
+      return false;
+    }
+
+    val result = create.selectFrom(USER_VEHICLE)
+        .where(USER_VEHICLE.VEHICLE_ID.eq(vehicleId))
+        .and(USER_VEHICLE.USER_VEHICLE_ID.isNotNull())
+        .fetch();
+
+    return result.isEmpty();
+  }
+
+  private boolean isVehicleExists(String vehicleId) {
+    return Optional.ofNullable(
+        create.selectFrom(VEHICLE).where(VEHICLE.VEHICLE_ID.eq(vehicleId)).fetchOne()).isPresent();
   }
 }

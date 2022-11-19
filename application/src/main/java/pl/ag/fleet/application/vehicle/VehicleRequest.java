@@ -1,4 +1,4 @@
-package pl.ag.fleet.vehicle;
+package pl.ag.fleet.application.vehicle;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,12 +6,12 @@ import pl.ag.fleet.common.FuelType;
 
 @Data
 @AllArgsConstructor
-public class VehicleDTO {
+public class VehicleRequest {
 
-  private Long companyId;
   private String make;
   private String model;
   private Integer productionYear;
   private FuelType fuelType;
   private String vinNumber;
+
 }

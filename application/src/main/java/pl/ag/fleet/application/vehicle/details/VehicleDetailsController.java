@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.ag.fleet.vehicle.VehicleDetailsDataProvider;
+import pl.ag.fleet.vehicle.details.VehicleDetailsDataProvider;
 
 @RestController
 @RequestMapping("/vehicles/detalis")
@@ -46,7 +46,7 @@ public class VehicleDetailsController {
             record.getTime().toString())).collect(
         Collectors.toList())));
   }
-  
+
   @GetMapping("/insurances/actual/{vehicleId}")
   public ResponseEntity<InsuranceDetail> getActualInsurance(@PathVariable String vehicleId) {
     return ResponseEntity.ok(this.vehicleDetailsDataProvider.getActualInsurance(vehicleId)

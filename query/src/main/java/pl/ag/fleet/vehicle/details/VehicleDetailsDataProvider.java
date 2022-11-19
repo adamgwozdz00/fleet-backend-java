@@ -1,4 +1,4 @@
-package pl.ag.fleet.vehicle;
+package pl.ag.fleet.vehicle.details;
 
 import static pl.ag.fleet.Tables.DRIVER;
 import static pl.ag.fleet.Tables.INSURANCE;

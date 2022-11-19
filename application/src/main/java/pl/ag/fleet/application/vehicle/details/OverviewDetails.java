@@ -8,5 +8,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class OverviewDetails {
 
-  private List<OverviewDetail> overviewRecordList;
+  private List<OverviewDetail> overviewDetails;
 }

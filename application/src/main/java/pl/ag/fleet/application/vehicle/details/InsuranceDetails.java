@@ -8,5 +8,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class InsuranceDetails {
 
-  private List<InsuranceDetail> insuranceList;
+  private List<InsuranceDetail> insuranceDetails;
 }

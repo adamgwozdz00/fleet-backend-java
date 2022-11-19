@@ -1,4 +1,4 @@
-package pl.ag.fleet.vehicle;
+package pl.ag.fleet.vehicle.details;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

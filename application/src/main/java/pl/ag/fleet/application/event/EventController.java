@@ -32,6 +32,7 @@ public class EventController {
 
   private final EventService service;
 
+  @Deprecated
   @PostMapping("/create")
   public void pushEvent(@RequestBody CreateVehicleRequest request) {
     service.process(new Event(new CreateVehicleData(
@@ -44,6 +45,7 @@ public class EventController {
     )));
   }
 
+  @Deprecated
   @PostMapping("/actual")
   public void pushEvent(@RequestBody ActualDataRequest request) {
     service.process(new Event(new ActualData(
@@ -63,6 +65,7 @@ public class EventController {
     )));
   }
 
+  @Deprecated
   @PostMapping("/overview")
   public void pushEvent(@RequestBody OverviewEventRequest request) {
     service.process(new Event(new OverviewData(
@@ -72,6 +75,7 @@ public class EventController {
     )));
   }
 
+  @Deprecated
   @PostMapping("/insurance")
   public void pushEvent(@RequestBody InsuranceEventRequest request) {
     service.process(new Event(new InsuranceData(

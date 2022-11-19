@@ -8,5 +8,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class DriverDetails {
 
-  private List<DriverDetail> driverDetailList;
+  private List<DriverDetail> driverDetails;
 }

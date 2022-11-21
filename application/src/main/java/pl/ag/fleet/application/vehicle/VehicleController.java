@@ -27,6 +27,7 @@ public class VehicleController {
   private final VehicleService vehicleService;
   private final VehicleProvider vehicleProvider;
   private final AuthenticatedUserContextHolder contextHolder;
+  private final VehicleResponseFactory vehicleResponseFactory;
 
   @PostMapping
   public ResponseEntity<Void> create(@RequestBody VehicleRequest request) {
@@ -38,9 +39,9 @@ public class VehicleController {
 
   @GetMapping
   public ResponseEntity<Vehicles> getAllVehicles() {
-    val companyId = contextHolder.getAuthenticatedUser().getPrincipal().getCompanyId();
-    val vehicles = vehicleProvider.getVehiclesByCompany(companyId);
-    return ResponseEntity.ok(new Vehicles(vehicles));
+    return ResponseEntity.ok(
+        this.vehicleResponseFactory.create(contextHolder.getAuthenticatedUser().getPrincipal(),
+            vehicleProvider));
   }
 
   @PutMapping("/{vehicleId}/states")

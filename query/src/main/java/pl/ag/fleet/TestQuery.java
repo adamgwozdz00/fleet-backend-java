@@ -32,5 +32,6 @@ public class TestQuery {
     System.out.println(
         detailsDataProvider.getActualOverview("f97e07a3-0a8c-4d84-9b58-f3727866cafb"));
     System.out.println(vehicleProvider.isVehicleAvailable("f97e07a3-0a8c-4d84-9b58-f3727866cafb"));
+    System.out.println(vehicleProvider.getVehicleByUserId("af2990c0-0b2b-4f3b-8866-53e30380589a"));
   }
 }

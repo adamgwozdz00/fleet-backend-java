@@ -1,5 +1,6 @@
 package pl.ag.fleet.vehicle;
 
+import static org.jooq.generated.Tables.COMPANY_USER;
 import static org.jooq.generated.Tables.USER_VEHICLE;
 import static pl.ag.fleet.Tables.VEHICLE;
 import static pl.ag.fleet.Tables.VEHICLE_STATE;
@@ -29,6 +30,26 @@ public class VehicleProvider {
         .join(VEHICLE_STATE)
         .on(VEHICLE_STATE.ID.eq(VEHICLE.STATE_ID))
         .where(VEHICLE.COMPANY_ID.eq(companyId))
+        .fetch()
+        .into(VehicleRecord.class);
+  }
+
+  public List<VehicleRecord> getVehicleByUserId(String userId) {
+    return create.select(VEHICLE.VEHICLE_ID,
+            VEHICLE.MAKE,
+            VEHICLE.MODEL,
+            VEHICLE.PRODUCTION_YEAR,
+            VEHICLE.FUEL_TYPE,
+            VEHICLE.VIN_NUMBER,
+            VEHICLE_STATE.KILOMETERS)
+        .from(VEHICLE)
+        .join(VEHICLE_STATE)
+        .on(VEHICLE_STATE.ID.eq(VEHICLE.STATE_ID))
+        .join(USER_VEHICLE)
+        .on(USER_VEHICLE.VEHICLE_ID.eq(VEHICLE.VEHICLE_ID))
+        .join(COMPANY_USER)
+        .on(COMPANY_USER.ID.eq(USER_VEHICLE.USER_VEHICLE_ID))
+        .where(COMPANY_USER.USER_ID.eq(userId))
         .fetch()
         .into(VehicleRecord.class);
   }

@@ -38,9 +38,21 @@ class InMemoryUserRepository implements UserRepository {
   void initAccounts() {
     System.out.println("Post construct fires!");
     val encoder = new BCryptPasswordEncoder();
-    this.save(new User(UserId.generate(), new Username("admin@example.com"),
+    this.save(new User(new UserId("8d5dcfdc-aca3-4aa0-bb66-c13eabf0c985"),
+        new Username("admin@example.com"),
         new Password("f00pass123").encode(encoder), "admin", new CompanyId(1)));
-    this.save(new User(UserId.generate(), new Username("user@example.com"),
+    this.save(new User(new UserId("af2990c0-0b2b-4f3b-8866-53e30380589a"),
+        new Username("user@example.com"),
         new Password("f00pass123").encode(encoder), "user", new CompanyId(1)));
+
+    this.save(new User(new UserId("9c17d473-f182-4398-8df8-907cc552496f"),
+        new Username("user.company2@example.com"),
+        new Password("f00pass123").encode(encoder), "user", new CompanyId(2)));
+
+    this.save(new User(new UserId("ca89ca40-a445-43a6-b7e7-9ea98027cc84"),
+        new Username("admin.company3@example.com"),
+        new Password("f00pass123").encode(encoder), "admin", new CompanyId(3)));
   }
+
 }
+

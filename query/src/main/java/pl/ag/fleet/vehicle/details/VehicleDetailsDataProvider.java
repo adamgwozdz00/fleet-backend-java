@@ -8,6 +8,7 @@ import static pl.ag.fleet.Tables.VEHICLE_STATE;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Component;
@@ -53,6 +54,20 @@ public class VehicleDetailsDataProvider {
             .orderBy(VEHICLE_STATE.TIME)
             .fetch()
             .into(DriverHistoryRecord.class);
+  }
+
+  public List<OverviewRecord> getOverviewData(String vehicleId, boolean onlyActual) {
+    if (onlyActual) {
+      return this.getActualOverview(vehicleId).stream().collect(Collectors.toList());
+    }
+    return this.getOverviewHistory(vehicleId);
+  }
+
+  public List<InsuranceRecord> getInsuranceData(String vehicleId, boolean onlyActual) {
+    if (onlyActual) {
+      return this.getActualInsurance(vehicleId).stream().collect(Collectors.toList());
+    }
+    return this.getInsuranceHistory(vehicleId);
   }
 
   public List<OverviewRecord> getOverviewHistory(String vehicleId) {

@@ -27,7 +27,7 @@ public class VehicleProvider {
             VEHICLE.VIN_NUMBER,
             VEHICLE_STATE.KILOMETERS)
         .from(VEHICLE)
-        .join(VEHICLE_STATE)
+        .leftJoin(VEHICLE_STATE)
         .on(VEHICLE_STATE.ID.eq(VEHICLE.STATE_ID))
         .where(VEHICLE.COMPANY_ID.eq(companyId))
         .fetch()

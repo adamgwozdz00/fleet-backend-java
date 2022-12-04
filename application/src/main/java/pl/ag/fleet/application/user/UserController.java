@@ -20,12 +20,12 @@ public class UserController {
 
   private final AuthenticatedUserContextHolder contextHolder;
   private final CompanyUserService companyUserService;
+  private final UserDataFactory userDataFactory;
 
   @GetMapping
-  public ResponseEntity<UserInfo> getUserInfo() {
+  public ResponseEntity<UserData> getUserData() {
     val user = contextHolder.getAuthenticatedUser();
-    return ResponseEntity.ok(
-        new UserInfo(user.getPrincipal().getCompanyId(), user.getPrincipal().getRole()));
+    return ResponseEntity.ok(userDataFactory.createData(user));
   }
 
   @PatchMapping("/vehicles/{vehicleId}")

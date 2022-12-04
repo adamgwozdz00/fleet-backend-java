@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import pl.ag.fleet.manager.security.LoginDetails;
 import pl.ag.fleet.manager.security.SecurityService;
+import pl.ag.fleet.manager.security.Token;
 
 
 @RestController
@@ -16,9 +17,9 @@ public class AuthenticationController {
   private final SecurityService service;
 
   @PostMapping("/login")
-  public AuthenticationResponse login(@RequestBody LoginRequest loginRequest) {
+  public Token login(@RequestBody LoginRequest loginRequest) {
     val result = this.service.authenticate(
         new LoginDetails(loginRequest.getUsername(), loginRequest.getPassword()));
-    return new AuthenticationResponse(result.getToken(), result.getRole());
+    return result.getToken();
   }
 }

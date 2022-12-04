@@ -15,7 +15,7 @@ class User {
 
   private Username username;
   private Password password;
-  private String role;
+  private UserRole role;
   private CompanyId companyId;
 
   boolean isPasswordMatches(Password password, PasswordEncoder encoder) {

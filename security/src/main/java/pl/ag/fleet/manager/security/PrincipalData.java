@@ -7,5 +7,5 @@ public class PrincipalData {
 
   private String userId;
   private Long companyId;
-  private String role;
+  private UserRole role;
 }

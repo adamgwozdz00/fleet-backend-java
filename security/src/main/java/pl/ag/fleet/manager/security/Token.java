@@ -1,19 +1,15 @@
 package pl.ag.fleet.manager.security;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-import java.util.Date;
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Value
-class Token {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Token {
 
   private String token;
+  private long expiresIn;
 
-  static Token createToken(TokenPayload payload, String secret, long expiresAfter) {
-    return new Token(JWT.create()
-        .withPayload(payload.toClaims())
-        .withExpiresAt(new Date(System.currentTimeMillis() + expiresAfter))
-        .sign(Algorithm.HMAC256(secret)));
-  }
 }

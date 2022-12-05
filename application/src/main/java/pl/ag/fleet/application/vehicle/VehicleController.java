@@ -44,6 +44,11 @@ public class VehicleController {
             vehicleProvider));
   }
 
+  @GetMapping("/fuels")
+  public ResponseEntity<VehicleFuelType> getFuelTypes() {
+    return ResponseEntity.ok(new VehicleFuelType());
+  }
+
   @PutMapping("/{vehicleId}/states")
   public ResponseEntity<Void> updateState(@PathVariable String vehicleId, @RequestBody
   VehicleStateDTO request) {

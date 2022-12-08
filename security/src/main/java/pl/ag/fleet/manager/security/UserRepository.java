@@ -8,5 +8,5 @@ public interface UserRepository {
 
   Optional<User> findBy(Username username);
 
-  User save(User user);
+
 }

@@ -1,5 +1,6 @@
 package pl.ag.fleet.application.vehicle;
 
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,7 @@ public class VehicleController {
   private final VehicleResponseFactory vehicleResponseFactory;
 
   @PostMapping
-  public ResponseEntity<Void> create(@RequestBody VehicleRequest request) {
+  public ResponseEntity<Void> create(@Valid @RequestBody VehicleRequest request) {
     val companyId = contextHolder.getAuthenticatedUser().getPrincipal().getCompanyId();
     vehicleService.createVehicle(new VehicleDTO(companyId, request.getMake(), request.getModel(),
         request.getProductionYear(), request.getFuelType(), request.getVinNumber()));

@@ -17,7 +17,7 @@ class UserTest {
 
   @BeforeEach
   void setUp() {
-    this.user = new User(new UserId("1"), new CompanyId(1L));
+    this.user = new User(new UserId(1), new CompanyId(1L));
     mockVehicleAvailabilityService = new MockVehicleAvailabilityService();
   }
 
@@ -109,7 +109,7 @@ class UserTest {
     public boolean isAvailable(VehicleId vehicleId) {
       var contains = vehicleIdSet.contains(vehicleId);
       vehicleIdSet.add(vehicleId);
-      return contains;
+      return !contains;
     }
   }
 }

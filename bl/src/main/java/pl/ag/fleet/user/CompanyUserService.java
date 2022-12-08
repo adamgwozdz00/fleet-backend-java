@@ -13,8 +13,8 @@ public class CompanyUserService {
   private final VehicleAvailabilityService vehicleAvailabilityService;
 
   public Result addVehicleToUser(VehicleUserDTO vehicleUserDTO) {
-    val user = createOrLoadUser(new UserId(vehicleUserDTO.getUserId()),
-        new CompanyId(vehicleUserDTO.getCompanyId()));
+    val user = this.companyUserRepository.load(new UserId(vehicleUserDTO.getUserId()));
+
     val result = user.add(new VehicleId(vehicleUserDTO.getVehicleId()), vehicleAvailabilityService);
 
     companyUserRepository.save(user);
@@ -23,17 +23,17 @@ public class CompanyUserService {
   }
 
   public void removeVehicleFormUser(VehicleUserDTO vehicleUserDTO) {
-    val user = createOrLoadUser(new UserId(vehicleUserDTO.getUserId()),
-        new CompanyId(vehicleUserDTO.getCompanyId()));
+    val user = this.companyUserRepository.load(new UserId(vehicleUserDTO.getUserId()));
     user.remove(new VehicleId(vehicleUserDTO.getVehicleId()));
     companyUserRepository.save(user);
   }
 
-  private User createOrLoadUser(UserId userId, CompanyId companyId) {
+  public Result createUser(UserId userId, CompanyId companyId) {
     var user = companyUserRepository.load(userId);
     if (user == null) {
-      user = new User(userId, companyId);
+      this.companyUserRepository.save(new User(userId, companyId));
+      return Result.createSuccess();
     }
-    return user;
+    return Result.createFail();
   }
 }

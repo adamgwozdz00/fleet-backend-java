@@ -14,7 +14,7 @@ public class CompanyUserRepositoryImpl implements CompanyUserRepository {
 
   @Override
   public User load(UserId userId) {
-    return companyUserJpa.findByUserId(userId).orElse(null);
+    return companyUserJpa.findById(userId.getUserId()).orElse(null);
   }
 
   @Override

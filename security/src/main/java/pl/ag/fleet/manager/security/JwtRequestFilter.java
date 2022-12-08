@@ -46,10 +46,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
       filterChain.doFilter(request, response);
       return;
     }
+
     // set user details on spring security context
-    val user = repository.findBy(new UserId(payload.get("userId").asString())).orElseThrow();
+    val user = repository.findBy(new Username(payload.get("username").asString())).orElseThrow();
     val authentication = new AuthenticatedUser(
-        new PrincipalData(user.getUserId().getId(), user.getCompanyId().getCompanyId(),
+        new PrincipalData(user.getUserId().getId(), user.getUsername().getUsername(),
+            user.getCompanyId().getCompanyId(),
             user.getRole()), null);
 
     SecurityContextHolder.getContext().setAuthentication(authentication);

@@ -16,10 +16,12 @@ class UserService implements UserDetailsService {
   private final UserRepository repository;
 
   @Override
-  public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-    val user = repository.findBy(new UserId(userId)).orElseThrow();
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    val user = repository.findBy(new Username(username)).orElseThrow();
 
     return new User(user.getUsername().getUsername(), user.getPassword().getPassword(),
         Collections.EMPTY_LIST);
   }
+
+
 }

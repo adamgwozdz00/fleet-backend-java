@@ -28,6 +28,7 @@ class TokenService {
     long expiresAt = currentTime + expiresAfter;
     val token = JWT.create()
         .withClaim("userId", user.getUserId().getId())
+        .withClaim("username", user.getUsername().getUsername())
         .withClaim("role", user.getRole().roleName)
         .withClaim("companyId", user.getCompanyId().getCompanyId())
         .withIssuedAt(new Date(currentTime))

@@ -5,7 +5,8 @@ import lombok.Value;
 @Value
 public class PrincipalData {
 
-  private String userId;
+  private long userId;
+  private String username;
   private Long companyId;
   private UserRole role;
 }

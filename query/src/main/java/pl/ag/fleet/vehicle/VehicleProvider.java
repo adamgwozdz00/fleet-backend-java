@@ -34,7 +34,7 @@ public class VehicleProvider {
         .into(VehicleRecord.class);
   }
 
-  public List<VehicleRecord> getVehicleByUserId(String userId) {
+  public List<VehicleRecord> getVehicleByUserId(long userId) {
     return create.select(VEHICLE.VEHICLE_ID,
             VEHICLE.MAKE,
             VEHICLE.MODEL,
@@ -49,7 +49,7 @@ public class VehicleProvider {
         .on(USER_VEHICLE.VEHICLE_ID.eq(VEHICLE.VEHICLE_ID))
         .join(COMPANY_USER)
         .on(COMPANY_USER.ID.eq(USER_VEHICLE.USER_VEHICLE_ID))
-        .where(COMPANY_USER.USER_ID.eq(userId))
+        .where(COMPANY_USER.ID.eq(userId))
         .fetch()
         .into(VehicleRecord.class);
   }

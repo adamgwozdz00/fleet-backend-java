@@ -7,7 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class VehicleUserDTO {
 
-  private String userId;
+  private long userId;
   private String vehicleId;
   private long companyId;
 }

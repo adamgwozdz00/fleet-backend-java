@@ -1,7 +1,6 @@
 package pl.ag.fleet.manager.security;
 
 import java.io.Serializable;
-import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -14,11 +13,6 @@ import lombok.NoArgsConstructor;
 @Getter
 class UserId implements Serializable {
 
-  private String id;
-
-  static UserId generate() {
-    return new UserId(UUID.randomUUID().toString());
-  }
-
+  private long id;
 
 }

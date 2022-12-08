@@ -8,19 +8,17 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class UserData {
+public class SelfUserData {
 
   private String companyName;
   private Set<String> routes;
 
-  public UserData(String companyName) {
+  public SelfUserData(String companyName) {
     this.companyName = companyName;
     this.routes = new HashSet<>();
-
-
   }
 
-  public UserData route(Routes route) {
+  public SelfUserData route(Routes route) {
     this.routes.add(route.routeName);
     return this;
   }
@@ -31,7 +29,7 @@ public class UserData {
     USERS("users"),
     VEHICLES("vehicles"),
     DRIVERS("drivers"),
-    ACCOUNTS("account");
+    ACCOUNTS("account"), REPORTS("reports");
 
     final String routeName;
 

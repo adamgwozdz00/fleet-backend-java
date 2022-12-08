@@ -22,10 +22,16 @@ public class UserController {
   private final CompanyUserService companyUserService;
   private final UserDataFactory userDataFactory;
 
-  @GetMapping
-  public ResponseEntity<UserData> getUserData() {
+  @GetMapping("/self")
+  public ResponseEntity<SelfUserData> getUserData() {
     val user = contextHolder.getAuthenticatedUser();
     return ResponseEntity.ok(userDataFactory.createData(user));
+  }
+
+  @GetMapping
+  public ResponseEntity<UsersData> getUsersData() {
+    val user = contextHolder.getAuthenticatedUser();
+    return null;
   }
 
   @PatchMapping("/vehicles/{vehicleId}")
@@ -37,7 +43,7 @@ public class UserController {
   }
 
   @DeleteMapping("/vehicles/{vehicleId}")
-  public ResponseEntity<Void> removeVehicleToUser(@PathVariable String vehicleId) {
+  public ResponseEntity<Void> removeVehicle(@PathVariable String vehicleId) {
     val principal = contextHolder.getAuthenticatedUser().getPrincipal();
     this.companyUserService.removeVehicleFormUser(
         new VehicleUserDTO(principal.getUserId(), vehicleId, principal.getCompanyId()));

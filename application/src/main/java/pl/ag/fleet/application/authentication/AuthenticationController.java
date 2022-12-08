@@ -35,8 +35,9 @@ public class AuthenticationController {
   @PostMapping("/register")
   public ResponseEntity<RegistrationResponse> register(
       @Valid @RequestBody RegisterRequest registerRequest) {
+    val user = contextHolder.getAuthenticatedUser().getPrincipal();
     val result = authUserService.register(new AuthUser(
-        registerRequest.getCompanyId(),
+        user.getCompanyId(),
         registerRequest.getUsername(),
         registerRequest.getPassword(),
         registerRequest.getRole(),

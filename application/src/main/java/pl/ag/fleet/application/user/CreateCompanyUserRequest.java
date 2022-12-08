@@ -1,13 +1,13 @@
 package pl.ag.fleet.application.user;
 
-import java.util.List;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import pl.ag.fleet.user.UserRecord;
 
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsersData {
+public class CreateCompanyUserRequest {
 
-  public List<UserRecord> users;
+  @NotNull
+  public Long userId;
 }

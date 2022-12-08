@@ -11,6 +11,7 @@ public class CompanyUserService {
 
   private final CompanyUserRepository companyUserRepository;
   private final VehicleAvailabilityService vehicleAvailabilityService;
+  private final UserIdentityValidationService userIdentityValidationService;
 
   public Result addVehicleToUser(VehicleUserDTO vehicleUserDTO) {
     val user = this.companyUserRepository.load(new UserId(vehicleUserDTO.getUserId()));
@@ -29,6 +30,10 @@ public class CompanyUserService {
   }
 
   public Result createUser(UserId userId, CompanyId companyId) {
+    if (!this.userIdentityValidationService.isValid(userId)) {
+      return Result.createFail();
+    }
+
     var user = companyUserRepository.load(userId);
     if (user == null) {
       this.companyUserRepository.save(new User(userId, companyId));

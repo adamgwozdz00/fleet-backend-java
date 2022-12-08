@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 @Embeddable
 @AllArgsConstructor
 @NoArgsConstructor
+public
 class CompanyId {
 
   private Long companyId;

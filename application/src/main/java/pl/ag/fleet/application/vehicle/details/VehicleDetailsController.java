@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.ag.fleet.vehicle.details.VehicleDetailsDataProvider;
 
 @RestController
-@RequestMapping("/vehicles/detalis")
+@RequestMapping("/vehicles/details")
 @RequiredArgsConstructor
 public class VehicleDetailsController {
 

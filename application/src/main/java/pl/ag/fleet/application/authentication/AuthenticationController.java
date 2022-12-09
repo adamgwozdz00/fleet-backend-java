@@ -47,7 +47,7 @@ public class AuthenticationController {
             registerRequest.getTitle()
         )
     ));
-    return ResponseEntity.ok(new RegistrationResponse(result.isSuccess()));
+    return ResponseEntity.ok(new RegistrationResponse(result.getUserId(), result.isSuccess()));
   }
 
   @GetMapping("/roles")

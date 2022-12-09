@@ -1,13 +1,9 @@
 version: '3'
 services:
+
   application:
     platform: linux/x86_64
-    image: application:latest
+    image: adamgwozdz00/fleet-backend-java
     container_name: fleet-manager
     ports:
       - "8081:8080"
-    depends_on:
-      - db
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5433/test
-      - SPRING_FLYWAY_URL=jdbc:postgresql://db:5433/test

@@ -1,6 +1,7 @@
 package pl.ag.fleet.auth;
 
 import lombok.RequiredArgsConstructor;
+import lombok.val;
 import org.springframework.stereotype.Service;
 
 
@@ -14,10 +15,10 @@ public class AuthUserService {
   public AuthResult register(AuthUser authUser) {
     try {
       authUser.encodePassword(passwordEncoder);
-      this.authUserRepository.save(authUser);
-      return new AuthResult(true);
+      val result = this.authUserRepository.save(authUser);
+      return AuthResult.createSuccess(result.getId());
     } catch (RuntimeException r) {
-      return new AuthResult(false);
+      return AuthResult.createFail();
     }
   }
 }

@@ -5,6 +5,7 @@ import lombok.val;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,5 +49,10 @@ public class DriverController {
   public ResponseEntity<Drivers> getAllDrivers() {
     val companyId = contextHolder.getAuthenticatedUser().getPrincipal().getCompanyId();
     return ResponseEntity.ok(new Drivers(this.driverProvider.getAllDrivers(companyId)));
+  }
+
+  @GetMapping("{driverId}")
+  public ResponseEntity<DriverHistory> getDriverHistory(@PathVariable Long driverId) {
+    return ResponseEntity.ok(new DriverHistory(this.driverProvider.getDriverHistory(driverId)));
   }
 }

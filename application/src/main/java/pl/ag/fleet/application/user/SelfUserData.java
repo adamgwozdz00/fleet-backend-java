@@ -11,15 +11,15 @@ import lombok.NoArgsConstructor;
 public class SelfUserData {
 
   private String companyName;
-  private Set<String> routes;
+  private Set<RouteDetails> routes;
 
   public SelfUserData(String companyName) {
     this.companyName = companyName;
     this.routes = new HashSet<>();
   }
 
-  public SelfUserData route(Routes route) {
-    this.routes.add(route.routeName);
+  public SelfUserData route(Routes route, Integer index) {
+    this.routes.add(new RouteDetails(route.routeName,index));
     return this;
   }
 

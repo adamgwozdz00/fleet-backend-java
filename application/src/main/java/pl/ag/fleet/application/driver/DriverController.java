@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pl.ag.fleet.driver.CompanyId;
 import pl.ag.fleet.driver.DriverDTO;
 import pl.ag.fleet.driver.DriverId;
 import pl.ag.fleet.driver.DriverProvider;
@@ -28,7 +29,8 @@ public class DriverController {
 
   @PostMapping
   public ResponseEntity<DriverResponse> createDriver(@RequestBody DriverDTO request) {
-    val result = this.driverService.createDriver(request);
+    val companyId = contextHolder.getAuthenticatedUser().getPrincipal().getCompanyId();
+    val result = this.driverService.createDriver(new CompanyId(companyId),request);
     return ResponseEntity.ok(new DriverResponse(result.isSuccess(), result.getReason()));
   }
 

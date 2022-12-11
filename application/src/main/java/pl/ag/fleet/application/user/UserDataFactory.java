@@ -16,17 +16,21 @@ public class UserDataFactory {
   public SelfUserData createData(AuthenticatedUser user) {
     val role = user.getPrincipal().getRole();
     val companyData = companyDataProvider.getCompanyData(user.getPrincipal().getCompanyId());
-    val userRoutes = new SelfUserData(companyData.getCompanyName())
-        .route(Routes.VEHICLES)
-        .route(Routes.DRIVERS)
-        .route(Routes.ACCOUNTS)
-        .route(Routes.REPORTS);
 
     switch (role) {
       case USER:
-        return userRoutes;
+        return new SelfUserData(companyData.getCompanyName())
+            .route(Routes.VEHICLES)
+            .route(Routes.DRIVERS)
+            .route(Routes.REPORTS)
+            .route(Routes.ACCOUNTS);
       case ADMIN:
-        return userRoutes.route(Routes.USERS);
+        return new SelfUserData(companyData.getCompanyName())
+            .route(Routes.VEHICLES)
+            .route(Routes.DRIVERS)
+            .route(Routes.USERS)
+            .route(Routes.REPORTS)
+            .route(Routes.ACCOUNTS);
       default:
         throw new UnsupportedOperationException("Not supported user type");
     }

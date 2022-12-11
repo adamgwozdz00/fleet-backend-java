@@ -1,6 +1,7 @@
 package pl.ag.fleet.application.vehicle;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,10 +16,10 @@ public class VehicleRequest {
   private String make;
   @NotEmpty
   private String model;
-  @NotEmpty
+  @NotNull
   private Integer productionYear;
 
-  @NotEmpty
+  @NotNull
   private FuelType fuelType;
   @NotEmpty
   private String vinNumber;

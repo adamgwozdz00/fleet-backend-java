@@ -10,11 +10,11 @@ public class DriverService {
 
   private final DriverRepository repository;
 
-  public DriverOperationResult createDriver(DriverDTO driver) {
+  public DriverOperationResult createDriver(CompanyId companyId,DriverDTO driver) {
     try {
       this.repository.save(
           new Driver(
-              new CompanyId(driver.getCompanyId()),
+              companyId,
               new DriverDetails(driver.getFirstName(), driver.getLastName()),
               new Seniority(driver.getSeniorityInYears())
           ));

@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DriverDTO {
 
-  private long companyId;
   private String firstName;
   private String lastName;
   private int seniorityInYears;

@@ -10,7 +10,7 @@ import pl.ag.fleet.common.FuelType;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class VehicleRequest {
+public class VehicleBody {
 
   @NotEmpty
   private String make;

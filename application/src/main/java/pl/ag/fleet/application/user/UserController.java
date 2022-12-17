@@ -53,19 +53,21 @@ public class UserController {
     return ResponseEntity.ok(result.isSuccess());
   }
 
-  @PatchMapping("/vehicles/{vehicleId}")
-  public ResponseEntity<Boolean> addVehicleToUser(@PathVariable String vehicleId) {
+  @PatchMapping("{userId}/vehicles/{vehicleId}")
+  public ResponseEntity<Boolean> addVehicleToUser(@PathVariable long userId,
+      @PathVariable String vehicleId) {
     val principal = contextHolder.getAuthenticatedUser().getPrincipal();
     val result = this.companyUserService.addVehicleToUser(
-        new VehicleUserDTO(principal.getUserId(), vehicleId, principal.getCompanyId()));
+        new VehicleUserDTO(userId, vehicleId, principal.getCompanyId()));
     return ResponseEntity.ok(result.isSuccess());
   }
 
-  @DeleteMapping("/vehicles/{vehicleId}")
-  public ResponseEntity<Void> removeVehicle(@PathVariable String vehicleId) {
+  @DeleteMapping("{userId}/vehicles/{vehicleId}")
+  public ResponseEntity<Void> removeVehicle(@PathVariable long userId,
+      @PathVariable String vehicleId) {
     val principal = contextHolder.getAuthenticatedUser().getPrincipal();
     this.companyUserService.removeVehicleFormUser(
-        new VehicleUserDTO(principal.getUserId(), vehicleId, principal.getCompanyId()));
+        new VehicleUserDTO(userId, vehicleId, principal.getCompanyId()));
     return ResponseEntity.ok().build();
   }
 }

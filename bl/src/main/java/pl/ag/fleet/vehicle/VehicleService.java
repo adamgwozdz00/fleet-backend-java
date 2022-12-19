@@ -58,7 +58,18 @@ public class VehicleService {
     this.vehicleRepository.save(vehicle);
   }
 
+  public synchronized void delete(VehicleId vehicleId) {
+    val vehicle = this.vehicleRepository.load(vehicleId);
+
+    if (!exists(vehicle)) {
+      throw new IllegalStateException("Vehicle not exists");
+    }
+
+    this.vehicleRepository.delete(vehicle);
+  }
+
   private boolean exists(Vehicle vehicle) {
     return vehicle != null;
   }
+
 }

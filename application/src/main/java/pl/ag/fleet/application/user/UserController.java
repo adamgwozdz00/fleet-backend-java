@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +16,6 @@ import pl.ag.fleet.user.CompanyId;
 import pl.ag.fleet.user.CompanyUserService;
 import pl.ag.fleet.user.UserId;
 import pl.ag.fleet.user.UsersProvider;
-import pl.ag.fleet.user.VehicleUserDTO;
 
 @RequiredArgsConstructor
 @RestController
@@ -30,6 +28,8 @@ public class UserController {
   private final UsersDataResponseFactory responseFactory;
 
   private final UserDataFactory userDataFactory;
+
+  private final UserRequestFactory userRequestFactory;
 
   @GetMapping("/self")
   public ResponseEntity<SelfUserData> getUserData() {
@@ -53,21 +53,23 @@ public class UserController {
     return ResponseEntity.ok(result.isSuccess());
   }
 
-  @PatchMapping("{userId}/vehicles/{vehicleId}")
-  public ResponseEntity<Boolean> addVehicleToUser(@PathVariable long userId,
-      @PathVariable String vehicleId) {
+  @PatchMapping("/vehicles")
+  public ResponseEntity<Boolean> addVehicleToUser(UserParams userParams) {
     val principal = contextHolder.getAuthenticatedUser().getPrincipal();
-    val result = this.companyUserService.addVehicleToUser(
-        new VehicleUserDTO(userId, vehicleId, principal.getCompanyId()));
+
+    val request = userRequestFactory.create(userParams, principal.getCompanyId());
+
+    val result = this.companyUserService.addVehicleToUser(request);
     return ResponseEntity.ok(result.isSuccess());
   }
 
-  @DeleteMapping("{userId}/vehicles/{vehicleId}")
-  public ResponseEntity<Void> removeVehicle(@PathVariable long userId,
-      @PathVariable String vehicleId) {
+  @DeleteMapping("/vehicles")
+  public ResponseEntity<Void> removeVehicle(UserParams userParams) {
     val principal = contextHolder.getAuthenticatedUser().getPrincipal();
-    this.companyUserService.removeVehicleFormUser(
-        new VehicleUserDTO(userId, vehicleId, principal.getCompanyId()));
+
+    val request = userRequestFactory.create(userParams, principal.getCompanyId());
+
+    this.companyUserService.removeVehicleFormUser(request);
     return ResponseEntity.ok().build();
   }
 }

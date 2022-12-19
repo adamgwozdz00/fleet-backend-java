@@ -4,6 +4,7 @@ import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -68,6 +69,13 @@ public class VehicleController {
   public ResponseEntity<Void> updateInsurance(@PathVariable String vehicleId, @RequestBody
   InsuranceDTO request) {
     vehicleService.addOrUpdateInsurance(new VehicleId(vehicleId), request);
+    return ResponseEntity.ok().build();
+  }
+
+  @DeleteMapping("/{vehicleId}")
+  public ResponseEntity<Void> deleteVehicle(@PathVariable String vehicleId) {
+    vehicleService.delete(new VehicleId(vehicleId));
+
     return ResponseEntity.ok().build();
   }
 }

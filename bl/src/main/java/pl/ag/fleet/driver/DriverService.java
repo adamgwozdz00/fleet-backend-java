@@ -45,4 +45,12 @@ public class DriverService {
       return new DriverOperationResult(ex.getMessage());
     }
   }
+
+  public void deleteDriver(DriverId driverId) {
+    val driver = repository.load(driverId);
+    if(driver == null){
+      throw new IllegalStateException("Vehicle not exists");
+    }
+    repository.delete(driver);
+  }
 }

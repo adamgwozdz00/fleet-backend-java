@@ -3,6 +3,7 @@ package pl.ag.fleet.application.driver;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +33,12 @@ public class DriverController {
     val companyId = contextHolder.getAuthenticatedUser().getPrincipal().getCompanyId();
     val result = this.driverService.createDriver(new CompanyId(companyId),request);
     return ResponseEntity.ok(new DriverResponse(result.isSuccess(), result.getReason()));
+  }
+
+  @DeleteMapping("/{driverId}")
+  public ResponseEntity<Void> createDriver(@PathVariable Long driverId) {
+    this.driverService.deleteDriver(new DriverId(driverId));
+    return ResponseEntity.ok().build();
   }
 
   @PatchMapping("/promotions")

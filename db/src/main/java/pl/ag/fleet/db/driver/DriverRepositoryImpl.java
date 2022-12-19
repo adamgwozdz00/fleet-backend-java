@@ -23,4 +23,9 @@ public class DriverRepositoryImpl implements DriverRepository {
   public void save(Driver driver) {
     driverJpa.save(driver);
   }
+
+  @Override
+  public void delete(Driver driver) {
+    driverJpa.delete(driver);
+  }
 }

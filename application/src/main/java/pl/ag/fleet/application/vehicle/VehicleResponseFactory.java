@@ -7,7 +7,6 @@ import pl.ag.fleet.common.Availability;
 import pl.ag.fleet.common.CompanyId;
 import pl.ag.fleet.common.UserId;
 import pl.ag.fleet.manager.security.AuthenticatedUserContextHolder;
-import pl.ag.fleet.manager.security.UserRole;
 import pl.ag.fleet.vehicle.VehicleProvider;
 
 @Component
@@ -18,23 +17,26 @@ public class VehicleResponseFactory {
 
   public Vehicles create(VehicleParams params, VehicleProvider vehicleProvider) {
     val principal = contextHolder.getAuthenticatedUser().getPrincipal();
-    if (is(params.getWithoutAssigment())) {
-      return new Vehicles(
-          vehicleProvider.getVehiclesByCompany(new CompanyId(principal.getCompanyId()),
-              Availability.AVAILABLE));
+
+    if (params.isEmpty() && principal.isUser()) {
+      return new Vehicles(vehicleProvider.getVehicleByUserId(new UserId(principal.getUserId())));
     }
 
-    if (params.getUserId() != null) {
-      return new Vehicles(vehicleProvider.getVehicleByUserId(new UserId(params.getUserId())));
-    }
-
-    if (principal.getRole() == UserRole.ADMIN) {
+    if (params.isEmpty()) {
       return new Vehicles(
           vehicleProvider.getVehiclesByCompany(new CompanyId(principal.getCompanyId()),
               Availability.EMPTY));
     }
 
-    return new Vehicles(vehicleProvider.getVehicleByUserId(new UserId(principal.getUserId())));
+    if (params.getUserId() != null) {
+      return new Vehicles(
+          vehicleProvider.getVehicleByUserId(new UserId(params.getUserId())));
+    }
+
+    return new Vehicles(
+        vehicleProvider.getVehiclesByCompany(new CompanyId(principal.getCompanyId()),
+            params.availability));
+
   }
 
   private boolean is(Boolean withoutAssigment) {

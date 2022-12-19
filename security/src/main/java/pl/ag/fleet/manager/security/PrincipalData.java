@@ -9,4 +9,12 @@ public class PrincipalData {
   private String username;
   private Long companyId;
   private UserRole role;
+
+  public boolean isUser() {
+    return this.role == UserRole.USER;
+  }
+
+  public boolean isAdmin() {
+    return this.role == UserRole.ADMIN;
+  }
 }

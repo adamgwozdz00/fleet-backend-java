@@ -11,25 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @SpringBootApplication
 public class Main {
 
-  @Autowired
-  private PasswordEncoder encoder;
-
   public static void main(String[] args) {
     SpringApplication.run(Main.class, args);
-  }
-
-  @PostConstruct
-  void preparePasswords() {
-    try {
-      System.out.println(encoder.encode("f00pass123"));
-      Thread.sleep(100);
-      System.out.println(encoder.encode("f00pass123"));
-      Thread.sleep(100);
-      System.out.println(encoder.encode("f00pass123"));
-      Thread.sleep(100);
-      System.out.println(encoder.encode("f00pass123"));
-    } catch (InterruptedException e) {
-      throw new RuntimeException(e);
-    }
   }
 }

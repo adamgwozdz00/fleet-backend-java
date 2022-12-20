@@ -41,4 +41,8 @@ public class CompanyUserService {
     }
     return Result.createFail();
   }
+
+  public void deleteUser(UserId userId) {
+    this.companyUserRepository.delete(userId);
+  }
 }

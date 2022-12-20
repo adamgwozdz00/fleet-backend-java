@@ -5,4 +5,6 @@ public interface CompanyUserRepository {
   User load(UserId userId);
 
   void save(User user);
+
+  void delete(UserId userId);
 }

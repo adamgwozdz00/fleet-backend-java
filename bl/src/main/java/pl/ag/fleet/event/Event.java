@@ -2,6 +2,8 @@ package pl.ag.fleet.event;
 
 import lombok.Value;
 
+//TODO wywalić eventy
+
 @Value
 public class Event<T extends EventData> {
 

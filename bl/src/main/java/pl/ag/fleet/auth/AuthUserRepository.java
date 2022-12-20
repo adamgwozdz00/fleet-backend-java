@@ -9,4 +9,6 @@ public interface AuthUserRepository {
   Optional<AuthUser> load(String username);
 
   AuthUser save(AuthUser authUser);
+
+  void delete(Long userId);
 }

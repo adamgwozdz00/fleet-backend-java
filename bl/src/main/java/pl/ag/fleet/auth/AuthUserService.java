@@ -21,4 +21,8 @@ public class AuthUserService {
       return AuthResult.createFail();
     }
   }
+
+  public void removeUser(Long userId) {
+    this.authUserRepository.delete(userId);
+  }
 }

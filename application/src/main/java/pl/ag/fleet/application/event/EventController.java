@@ -25,6 +25,7 @@ import pl.ag.fleet.event.RefuelData;
 import pl.ag.fleet.event.VehicleId;
 import pl.ag.fleet.event.VinNumber;
 
+//TODO wywalić eventy
 @RestController
 @RequestMapping("/events")
 @RequiredArgsConstructor

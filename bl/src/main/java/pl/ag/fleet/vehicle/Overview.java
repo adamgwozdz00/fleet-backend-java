@@ -13,6 +13,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import pl.ag.fleet.common.VehicleId;
 
 @NoArgsConstructor
 @Getter

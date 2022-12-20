@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import pl.ag.fleet.common.Liters;
+import pl.ag.fleet.common.VehicleId;
 
 @NoArgsConstructor
 @EqualsAndHashCode

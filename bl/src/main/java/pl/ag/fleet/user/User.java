@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.NoArgsConstructor;
+import pl.ag.fleet.common.CompanyId;
+import pl.ag.fleet.common.VehicleId;
 
 @Entity
 @Table(schema = "fleet", name = "company_user")

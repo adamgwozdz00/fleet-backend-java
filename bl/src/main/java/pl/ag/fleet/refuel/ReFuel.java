@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import pl.ag.fleet.common.Liters;
+import pl.ag.fleet.common.VehicleId;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

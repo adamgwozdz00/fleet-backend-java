@@ -4,7 +4,6 @@ dependencies {
     implementation project(':db')
     implementation project(':bl')
     implementation project(':acl')
-    implementation project(':kafka')
     implementation project(':flyway')
     implementation project(':security')
     implementation project(':common')

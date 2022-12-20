@@ -2,8 +2,8 @@ package pl.ag.fleet.db.vehicle;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import pl.ag.fleet.common.VehicleId;
 import pl.ag.fleet.vehicle.Vehicle;
-import pl.ag.fleet.vehicle.VehicleId;
 import pl.ag.fleet.vehicle.VehicleRepository;
 
 @Repository

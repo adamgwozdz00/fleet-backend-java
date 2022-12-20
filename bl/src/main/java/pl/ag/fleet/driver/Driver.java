@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import pl.ag.fleet.common.CompanyId;
 
 @Entity
 @NoArgsConstructor

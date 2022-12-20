@@ -2,7 +2,7 @@ package pl.ag.fleet.acl.refuel;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import pl.ag.fleet.refuel.VehicleId;
+import pl.ag.fleet.common.VehicleId;
 import pl.ag.fleet.vehicle.VehicleRepository;
 
 @Component
@@ -14,6 +14,6 @@ public class VehicleRepositoryAdapter implements pl.ag.fleet.refuel.VehicleRepos
 
   @Override
   public boolean exists(VehicleId vehicleId) {
-    return repository.load(new pl.ag.fleet.vehicle.VehicleId(vehicleId.getVehicleId())) != null;
+    return repository.load(new pl.ag.fleet.common.VehicleId(vehicleId.getVehicleId())) != null;
   }
 }

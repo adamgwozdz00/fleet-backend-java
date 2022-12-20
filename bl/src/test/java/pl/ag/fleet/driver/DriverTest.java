@@ -6,6 +6,7 @@ import static pl.ag.fleet.driver.Title.JUNIOR;
 import static pl.ag.fleet.driver.Title.SENIOR;
 
 import org.junit.jupiter.api.Test;
+import pl.ag.fleet.common.CompanyId;
 
 class DriverTest {
 

@@ -3,6 +3,7 @@ package pl.ag.fleet.vehicle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import pl.ag.fleet.common.VehicleId;
 
 
 class MockVehicleRepository implements VehicleRepository {

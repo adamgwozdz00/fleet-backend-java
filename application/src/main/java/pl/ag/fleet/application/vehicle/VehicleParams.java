@@ -10,7 +10,7 @@ public class VehicleParams {
   Availability availability;
 
 
-  boolean isEmpty(){
+  boolean isEmpty() {
     return userId == null && availability == null;
   }
 

@@ -20,17 +20,17 @@ public class UserDataFactory {
     switch (role) {
       case USER:
         return new SelfUserData(companyData.getCompanyName())
-            .route(Routes.VEHICLES,1)
-            .route(Routes.DRIVERS,2)
-            .route(Routes.REPORTS,3)
-            .route(Routes.ACCOUNTS,4);
+            .route(Routes.VEHICLES, 1)
+            .route(Routes.DRIVERS, 2)
+            .route(Routes.REPORTS, 3)
+            .route(Routes.ACCOUNTS, 4);
       case ADMIN:
         return new SelfUserData(companyData.getCompanyName())
-            .route(Routes.VEHICLES,1)
-            .route(Routes.DRIVERS,2)
-            .route(Routes.USERS,3)
-            .route(Routes.REPORTS,4)
-            .route(Routes.ACCOUNTS,5);
+            .route(Routes.VEHICLES, 1)
+            .route(Routes.DRIVERS, 2)
+            .route(Routes.USERS, 3)
+            .route(Routes.REPORTS, 4)
+            .route(Routes.ACCOUNTS, 5);
       default:
         throw new UnsupportedOperationException("Not supported user type");
     }

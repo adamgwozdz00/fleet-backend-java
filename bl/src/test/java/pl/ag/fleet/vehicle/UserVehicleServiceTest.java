@@ -13,7 +13,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pl.ag.fleet.common.CompanyId;
 import pl.ag.fleet.common.FuelType;
+import pl.ag.fleet.common.VehicleId;
 import pl.ag.fleet.vehicle.MockVehicleRepository.SaveLoadEvent;
 
 class UserVehicleServiceTest {

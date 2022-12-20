@@ -3,6 +3,8 @@ package pl.ag.fleet.refuel;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Service;
+import pl.ag.fleet.common.Liters;
+import pl.ag.fleet.common.VehicleId;
 
 @Service
 @RequiredArgsConstructor

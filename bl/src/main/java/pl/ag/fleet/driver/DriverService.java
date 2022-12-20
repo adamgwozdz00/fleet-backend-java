@@ -3,6 +3,8 @@ package pl.ag.fleet.driver;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Service;
+import pl.ag.fleet.common.CompanyId;
+import pl.ag.fleet.common.DriverId;
 
 @Service
 @RequiredArgsConstructor
@@ -10,7 +12,7 @@ public class DriverService {
 
   private final DriverRepository repository;
 
-  public DriverOperationResult createDriver(CompanyId companyId,DriverDTO driver) {
+  public DriverOperationResult createDriver(CompanyId companyId, DriverDTO driver) {
     try {
       this.repository.save(
           new Driver(
@@ -48,7 +50,7 @@ public class DriverService {
 
   public void deleteDriver(DriverId driverId) {
     val driver = repository.load(driverId);
-    if(driver == null){
+    if (driver == null) {
       throw new IllegalStateException("Vehicle not exists");
     }
     repository.delete(driver);

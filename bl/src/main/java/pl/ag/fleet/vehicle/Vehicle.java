@@ -1,6 +1,8 @@
 package pl.ag.fleet.vehicle;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -12,6 +14,8 @@ import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import pl.ag.fleet.common.CompanyId;
+import pl.ag.fleet.common.VehicleId;
 
 @Getter
 @Entity
@@ -23,6 +27,7 @@ public class Vehicle {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private VehicleId id;
   @Embedded
+  @AttributeOverride(name = "companyId", column = @Column(name = "company_Id"))
   private CompanyId companyId;
   @Embedded
   private VehicleDetails details;

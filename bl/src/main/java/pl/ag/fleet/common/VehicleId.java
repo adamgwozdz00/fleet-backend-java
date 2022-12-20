@@ -1,4 +1,4 @@
-package pl.ag.fleet.vehicle;
+package pl.ag.fleet.common;
 
 import java.io.Serializable;
 import java.util.UUID;

@@ -10,7 +10,6 @@ import org.jooq.TableField;
 import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.Internal;
-
 import pl.ag.fleet.tables.Driver;
 import pl.ag.fleet.tables.Insurance;
 import pl.ag.fleet.tables.Overview;
@@ -20,28 +19,41 @@ import pl.ag.fleet.tables.VehicleState;
 
 
 /**
- * A class modelling foreign key relationships and constraints of tables in
- * fleet.
+ * A class modelling foreign key relationships and constraints of tables in fleet.
  */
-@SuppressWarnings({ "all", "unchecked", "rawtypes" })
+@SuppressWarnings({"all", "unchecked", "rawtypes"})
 public class Keys {
 
-    // -------------------------------------------------------------------------
-    // UNIQUE and PRIMARY KEY definitions
-    // -------------------------------------------------------------------------
+  // -------------------------------------------------------------------------
+  // UNIQUE and PRIMARY KEY definitions
+  // -------------------------------------------------------------------------
 
-    public static final UniqueKey<Record> DRIVER_PKEY = Internal.createUniqueKey(Driver.DRIVER, DSL.name("driver_pkey"), new TableField[] { Driver.DRIVER.ID }, true);
-    public static final UniqueKey<Record> INSURANCE_PKEY = Internal.createUniqueKey(Insurance.INSURANCE, DSL.name("insurance_pkey"), new TableField[] { Insurance.INSURANCE.ID }, true);
-    public static final UniqueKey<Record> OVERVIEW_PKEY = Internal.createUniqueKey(Overview.OVERVIEW, DSL.name("overview_pkey"), new TableField[] { Overview.OVERVIEW.ID }, true);
-    public static final UniqueKey<Record> RE_FUEL_PKEY = Internal.createUniqueKey(ReFuel.RE_FUEL, DSL.name("re_fuel_pkey"), new TableField[] { ReFuel.RE_FUEL.ID }, true);
-    public static final UniqueKey<Record> VEHICLE_PKEY = Internal.createUniqueKey(Vehicle.VEHICLE, DSL.name("vehicle_pkey"), new TableField[] { Vehicle.VEHICLE.VEHICLE_ID }, true);
-    public static final UniqueKey<Record> VEHICLE_STATE_PKEY = Internal.createUniqueKey(VehicleState.VEHICLE_STATE, DSL.name("vehicle_state_pkey"), new TableField[] { VehicleState.VEHICLE_STATE.ID }, true);
+  public static final UniqueKey<Record> DRIVER_PKEY = Internal.createUniqueKey(Driver.DRIVER,
+      DSL.name("driver_pkey"), new TableField[]{Driver.DRIVER.ID}, true);
+  public static final UniqueKey<Record> INSURANCE_PKEY = Internal.createUniqueKey(
+      Insurance.INSURANCE, DSL.name("insurance_pkey"), new TableField[]{Insurance.INSURANCE.ID},
+      true);
+  public static final UniqueKey<Record> OVERVIEW_PKEY = Internal.createUniqueKey(Overview.OVERVIEW,
+      DSL.name("overview_pkey"), new TableField[]{Overview.OVERVIEW.ID}, true);
+  public static final UniqueKey<Record> RE_FUEL_PKEY = Internal.createUniqueKey(ReFuel.RE_FUEL,
+      DSL.name("re_fuel_pkey"), new TableField[]{ReFuel.RE_FUEL.ID}, true);
+  public static final UniqueKey<Record> VEHICLE_PKEY = Internal.createUniqueKey(Vehicle.VEHICLE,
+      DSL.name("vehicle_pkey"), new TableField[]{Vehicle.VEHICLE.VEHICLE_ID}, true);
+  public static final UniqueKey<Record> VEHICLE_STATE_PKEY = Internal.createUniqueKey(
+      VehicleState.VEHICLE_STATE, DSL.name("vehicle_state_pkey"),
+      new TableField[]{VehicleState.VEHICLE_STATE.ID}, true);
 
-    // -------------------------------------------------------------------------
-    // FOREIGN KEY definitions
-    // -------------------------------------------------------------------------
+  // -------------------------------------------------------------------------
+  // FOREIGN KEY definitions
+  // -------------------------------------------------------------------------
 
-    public static final ForeignKey<Record, Record> VEHICLE__FKINSURANCE = Internal.createForeignKey(Vehicle.VEHICLE, DSL.name("fkinsurance"), new TableField[] { Vehicle.VEHICLE.INSURANCE_ID }, Keys.INSURANCE_PKEY, new TableField[] { Insurance.INSURANCE.ID }, true);
-    public static final ForeignKey<Record, Record> VEHICLE__FKOVERVIEW = Internal.createForeignKey(Vehicle.VEHICLE, DSL.name("fkoverview"), new TableField[] { Vehicle.VEHICLE.OVERVIEW_ID }, Keys.OVERVIEW_PKEY, new TableField[] { Overview.OVERVIEW.ID }, true);
-    public static final ForeignKey<Record, Record> VEHICLE__FKVEHICLESTATE = Internal.createForeignKey(Vehicle.VEHICLE, DSL.name("fkvehiclestate"), new TableField[] { Vehicle.VEHICLE.STATE_ID }, Keys.VEHICLE_STATE_PKEY, new TableField[] { VehicleState.VEHICLE_STATE.ID }, true);
+  public static final ForeignKey<Record, Record> VEHICLE__FKINSURANCE = Internal.createForeignKey(
+      Vehicle.VEHICLE, DSL.name("fkinsurance"), new TableField[]{Vehicle.VEHICLE.INSURANCE_ID},
+      Keys.INSURANCE_PKEY, new TableField[]{Insurance.INSURANCE.ID}, true);
+  public static final ForeignKey<Record, Record> VEHICLE__FKOVERVIEW = Internal.createForeignKey(
+      Vehicle.VEHICLE, DSL.name("fkoverview"), new TableField[]{Vehicle.VEHICLE.OVERVIEW_ID},
+      Keys.OVERVIEW_PKEY, new TableField[]{Overview.OVERVIEW.ID}, true);
+  public static final ForeignKey<Record, Record> VEHICLE__FKVEHICLESTATE = Internal.createForeignKey(
+      Vehicle.VEHICLE, DSL.name("fkvehiclestate"), new TableField[]{Vehicle.VEHICLE.STATE_ID},
+      Keys.VEHICLE_STATE_PKEY, new TableField[]{VehicleState.VEHICLE_STATE.ID}, true);
 }

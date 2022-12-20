@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pl.ag.fleet.common.CompanyId;
+import pl.ag.fleet.common.VehicleId;
 
 class UserTest {
 

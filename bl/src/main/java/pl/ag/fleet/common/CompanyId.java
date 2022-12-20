@@ -1,17 +1,15 @@
-package pl.ag.fleet.user;
+package pl.ag.fleet.common;
 
 import javax.persistence.Embeddable;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Embeddable
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 @Getter
-public class VehicleId {
+public class CompanyId {
 
-  private String vehicleId;
+  private long companyId;
 }

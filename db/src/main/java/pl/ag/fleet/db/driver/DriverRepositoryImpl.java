@@ -2,8 +2,8 @@ package pl.ag.fleet.db.driver;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import pl.ag.fleet.common.DriverId;
 import pl.ag.fleet.driver.Driver;
-import pl.ag.fleet.driver.DriverId;
 import pl.ag.fleet.driver.DriverRepository;
 
 @Repository

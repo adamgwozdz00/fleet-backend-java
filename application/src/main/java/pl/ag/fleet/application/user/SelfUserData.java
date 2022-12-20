@@ -19,7 +19,7 @@ public class SelfUserData {
   }
 
   public SelfUserData route(Routes route, Integer index) {
-    this.routes.add(new RouteDetails(route.routeName,index));
+    this.routes.add(new RouteDetails(route.routeName, index));
     return this;
   }
 

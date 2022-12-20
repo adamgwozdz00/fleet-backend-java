@@ -8,7 +8,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
+import pl.ag.fleet.common.CompanyId;
 import pl.ag.fleet.common.FuelType;
+import pl.ag.fleet.common.Liters;
 
 class UserVehicleTest {
 

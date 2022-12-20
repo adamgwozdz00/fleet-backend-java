@@ -52,30 +52,38 @@ public class VehicleProvider {
 
   private List<VehicleRecord> getVehiclesByCompany(CompanyId companyId) {
     return create.select(FIELDS)
-        .from(VEHICLE, VEHICLE_STATE)
-        .where(VEHICLE_STATE.ID.eq(VEHICLE.STATE_ID))
-        .and(VEHICLE.COMPANY_ID.eq(companyId.getCompanyId()))
+        .from(VEHICLE)
+        .leftJoin(VEHICLE_STATE)
+        .on(VEHICLE_STATE.ID.eq(VEHICLE.STATE_ID))
+        .where(VEHICLE.COMPANY_ID.eq(companyId.getCompanyId()))
         .fetch()
         .into(VehicleRecord.class);
   }
 
   public List<VehicleRecord> getVehicleByUserId(UserId userId) {
     return create.select(FIELDS)
-        .from(VEHICLE, VEHICLE_STATE, USER_VEHICLE, COMPANY_USER)
-        .where(VEHICLE_STATE.ID.eq(VEHICLE.STATE_ID))
-        .and(USER_VEHICLE.VEHICLE_ID.eq(VEHICLE.VEHICLE_ID))
-        .and(COMPANY_USER.ID.eq(USER_VEHICLE.USER_VEHICLE_ID))
-        .and(COMPANY_USER.ID.eq(userId.getUserId()))
+        .from(VEHICLE)
+        .leftJoin(VEHICLE_STATE)
+        .on(VEHICLE_STATE.ID.eq(VEHICLE.STATE_ID))
+        .join(USER_VEHICLE)
+        .on(USER_VEHICLE.VEHICLE_ID.eq(VEHICLE.VEHICLE_ID))
+        .join(COMPANY_USER)
+        .on(COMPANY_USER.ID.eq(USER_VEHICLE.USER_VEHICLE_ID))
+        .where(COMPANY_USER.ID.eq(userId.getUserId()))
         .fetch()
         .into(VehicleRecord.class);
   }
 
   private List<VehicleRecord> getTakenVehicles(CompanyId companyId) {
     return create.select(FIELDS)
-        .from(VEHICLE, VEHICLE_STATE, USER_VEHICLE)
+        .from(VEHICLE)
+        .leftJoin(VEHICLE_STATE)
+        .on(VEHICLE_STATE.ID.eq(VEHICLE.STATE_ID))
+        .join(USER_VEHICLE)
+        .on(USER_VEHICLE.VEHICLE_ID.eq(VEHICLE.VEHICLE_ID))
+        .join(COMPANY_USER)
+        .on(COMPANY_USER.ID.eq(USER_VEHICLE.USER_VEHICLE_ID))
         .where(VEHICLE.COMPANY_ID.eq(companyId.getCompanyId()))
-        .and(VEHICLE_STATE.ID.eq(VEHICLE.STATE_ID))
-        .and(USER_VEHICLE.VEHICLE_ID.eq(VEHICLE.VEHICLE_ID))
         .and(USER_VEHICLE.USER_VEHICLE_ID.isNotNull())
         .fetch()
         .into(VehicleRecord.class);

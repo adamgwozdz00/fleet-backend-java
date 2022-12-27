@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.ag.fleet.common.CompanyId;
 import pl.ag.fleet.common.DriverId;
 import pl.ag.fleet.driver.DriverDTO;
 import pl.ag.fleet.driver.DriverProvider;
+import pl.ag.fleet.driver.DriverSeniorityDTO;
 import pl.ag.fleet.driver.DriverService;
 import pl.ag.fleet.manager.security.AuthenticatedUserContextHolder;
 
@@ -41,16 +41,9 @@ public class DriverController {
     return ResponseEntity.ok().build();
   }
 
-  @PatchMapping("/promotions")
-  public ResponseEntity<DriverResponse> promoteDriver(@RequestParam long driverId) {
-    val result = this.driverService.promoteDriver(new DriverId(driverId));
-    return ResponseEntity.ok(new DriverResponse(result.isSuccess(), result.getReason()));
-  }
-
-  @PatchMapping("/seniority")
-  public ResponseEntity<DriverResponse> updateSeniority(@RequestParam long driverId,
-      @RequestParam int seniorityInYears) {
-    val result = this.driverService.updateDriverSeniority(new DriverId(driverId), seniorityInYears);
+  @PatchMapping
+  public ResponseEntity<DriverResponse> updateDriver(DriverSeniorityDTO request) {
+    val result = this.driverService.updateDriver(request);
     return ResponseEntity.ok(new DriverResponse(result.isSuccess(), result.getReason()));
   }
 

@@ -53,12 +53,12 @@ class DriverTest {
   }
 
   @Test
-  void testUpdateDriverSeniorityWithLowerNumberOfYears() {
+  void testUpdateDriverSeniority2() {
     // given
     driver(3);
 
     // when
-    assertThrows(IllegalArgumentException.class, () -> updateSeniority(3));
+    updateSeniority(2);
 
     // then
     assertDriverTitle(JUNIOR);

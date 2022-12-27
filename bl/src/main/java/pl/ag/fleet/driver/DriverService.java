@@ -26,21 +26,24 @@ public class DriverService {
     }
   }
 
-  public DriverOperationResult promoteDriver(DriverId driverId) {
+  public DriverOperationResult updateDriver(DriverSeniorityDTO driverSeniorityDTO) {
+    System.out.println(driverSeniorityDTO);
     try {
-      val driver = repository.load(driverId);
-      driver.promote();
-      repository.save(driver);
-      return new DriverOperationResult();
-    } catch (RuntimeException ex) {
-      return new DriverOperationResult(ex.getMessage());
-    }
-  }
-
-  public DriverOperationResult updateDriverSeniority(DriverId driverId, int seniority) {
-    try {
-      val driver = repository.load(driverId);
-      driver.updateSeniority(new Seniority(seniority));
+      val driver = repository.load(new DriverId(driverSeniorityDTO.getDriverId()));
+      switch (driverSeniorityDTO.getOperation()) {
+        case PROMOTION:
+          driver.promote();
+          break;
+        case INCREMENT:
+          driver.updateSeniority(driver.getSeniority().increment());
+          break;
+        case DECREMENT:
+          driver.updateSeniority(driver.getSeniority().decrement());
+          break;
+        default:
+          driver.updateSeniority(new Seniority(driverSeniorityDTO.getSeniority()));
+          break;
+      }
       repository.save(driver);
       return new DriverOperationResult();
     } catch (RuntimeException ex) {

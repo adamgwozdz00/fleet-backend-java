@@ -25,7 +25,11 @@ class Seniority {
     }
   }
 
-  public boolean isMoreThanOrEqual(Seniority seniorityInYears) {
-    return this.seniority >= seniorityInYears.seniority;
+  public Seniority increment() {
+    return new Seniority(this.seniority + 1);
+  }
+
+  public Seniority decrement() {
+    return new Seniority(this.seniority - 1);
   }
 }

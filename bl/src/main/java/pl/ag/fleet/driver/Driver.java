@@ -47,10 +47,6 @@ public class Driver {
 
 
   void updateSeniority(Seniority seniorityInYears) {
-    if (this.seniority.isMoreThanOrEqual(seniorityInYears)) {
-      throw new IllegalArgumentException("Can't decrease seniority.");
-    }
-
     this.seniority = seniorityInYears;
   }
 }

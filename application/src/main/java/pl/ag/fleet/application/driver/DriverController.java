@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pl.ag.fleet.common.Availability;
 import pl.ag.fleet.common.CompanyId;
 import pl.ag.fleet.common.DriverId;
 import pl.ag.fleet.driver.DriverDTO;
@@ -27,6 +29,7 @@ public class DriverController {
   private final DriverService driverService;
   private final DriverProvider driverProvider;
   private final AuthenticatedUserContextHolder contextHolder;
+  private final DriverResponseFactory driverResponseFactory;
 
   @PostMapping
   public ResponseEntity<DriverResponse> createDriver(@RequestBody DriverDTO request) {
@@ -48,9 +51,9 @@ public class DriverController {
   }
 
   @GetMapping
-  public ResponseEntity<Drivers> getAllDrivers() {
-    val companyId = contextHolder.getAuthenticatedUser().getPrincipal().getCompanyId();
-    return ResponseEntity.ok(new Drivers(this.driverProvider.getAllDrivers(companyId)));
+  public ResponseEntity<Drivers> getAllDrivers(
+      @RequestParam(defaultValue = "EMPTY") Availability availability) {
+    return ResponseEntity.ok(driverResponseFactory.create(availability, driverProvider));
   }
 
   @GetMapping("{driverId}")

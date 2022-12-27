@@ -62,7 +62,7 @@ class DriverTest {
 
     // then
     assertDriverTitle(JUNIOR);
-    assertDriverSeniorityInYears(3);
+    assertDriverSeniorityInYears(2);
   }
 
   private void driver(int seniorityInYears) {

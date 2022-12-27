@@ -54,6 +54,7 @@ public class VehicleController {
   @PutMapping("/{vehicleId}/states")
   public ResponseEntity<Void> updateState(@PathVariable String vehicleId, @RequestBody
   VehicleStateDTO request) {
+    System.out.println(request.getKilometers());
     vehicleService.updateVehicleState(new VehicleId(vehicleId), request);
     return ResponseEntity.ok().build();
   }

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.ag.fleet.common.VehicleId;
 import pl.ag.fleet.manager.security.AuthenticatedUserContextHolder;
+import pl.ag.fleet.refuel.RefuelDTO;
+import pl.ag.fleet.refuel.RefuelService;
 import pl.ag.fleet.vehicle.InsuranceDTO;
 import pl.ag.fleet.vehicle.OverviewDTO;
 import pl.ag.fleet.vehicle.VehicleDTO;
@@ -27,6 +29,7 @@ import pl.ag.fleet.vehicle.VehicleStateDTO;
 public class VehicleController {
 
   private final VehicleService vehicleService;
+  private final RefuelService refuelService;
   private final VehicleProvider vehicleProvider;
   private final AuthenticatedUserContextHolder contextHolder;
   private final VehicleResponseFactory vehicleResponseFactory;
@@ -70,6 +73,13 @@ public class VehicleController {
   public ResponseEntity<Void> updateInsurance(@PathVariable String vehicleId, @RequestBody
   InsuranceDTO request) {
     vehicleService.addOrUpdateInsurance(new VehicleId(vehicleId), request);
+    return ResponseEntity.ok().build();
+  }
+
+  @PutMapping("/{vehicleId}/fuels")
+  public ResponseEntity<Void> refuelVehicle(@PathVariable String vehicleId, @RequestBody
+  RefuelDTO request) {
+    refuelService.refuelVehicle(new VehicleId(vehicleId), request);
     return ResponseEntity.ok().build();
   }
 

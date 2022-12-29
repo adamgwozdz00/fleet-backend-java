@@ -3,6 +3,7 @@ package pl.ag.fleet.vehicle.details;
 import static nu.studer.sample.Tables.DRIVER;
 import static nu.studer.sample.Tables.INSURANCE;
 import static nu.studer.sample.Tables.OVERVIEW;
+import static nu.studer.sample.Tables.RE_FUEL;
 import static nu.studer.sample.Tables.VEHICLE;
 import static nu.studer.sample.Tables.VEHICLE_STATE;
 
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Component;
+import pl.ag.fleet.common.VehicleId;
 
 @Component
 @RequiredArgsConstructor
@@ -70,6 +72,14 @@ public class VehicleDetailsDataProvider {
     return this.getInsuranceHistory(vehicleId);
   }
 
+  public List<RefuelRecord> getRefuelHistory(VehicleId vehicleId) {
+    return context.select(RE_FUEL.COST, RE_FUEL.LITERS)
+        .from(RE_FUEL)
+        .where(RE_FUEL.VEHICLE_ID.eq(vehicleId.getVehicleId()))
+        .fetch()
+        .into(RefuelRecord.class);
+  }
+
   public List<OverviewRecord> getOverviewHistory(String vehicleId) {
     return
         context.select(OVERVIEW.ID, OVERVIEW.OVERVIEW_COST, OVERVIEW.OVERVIEW_EXPIRATION_DATE,
@@ -91,4 +101,5 @@ public class VehicleDetailsDataProvider {
             .fetchOne()).map(record -> record.into(OverviewRecord.class));
 
   }
+
 }

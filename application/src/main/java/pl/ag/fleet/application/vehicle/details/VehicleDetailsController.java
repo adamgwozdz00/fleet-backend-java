@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pl.ag.fleet.common.VehicleId;
 import pl.ag.fleet.vehicle.details.VehicleDetailsDataProvider;
 
 @RestController
@@ -47,5 +48,11 @@ public class VehicleDetailsController {
             record.getLastName(), record.getKilometers(),
             record.getTime().toString())).collect(
         Collectors.toList())));
+  }
+
+  @GetMapping("/fuels/{vehicleId}")
+  public ResponseEntity<RefuelDetails> getRefuelsHistory(@PathVariable String vehicleId) {
+    val result = this.vehicleDetailsDataProvider.getRefuelHistory(new VehicleId(vehicleId));
+    return ResponseEntity.ok(new RefuelDetails(result));
   }
 }

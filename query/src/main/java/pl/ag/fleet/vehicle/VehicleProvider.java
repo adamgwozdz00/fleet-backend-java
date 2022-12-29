@@ -57,6 +57,7 @@ public class VehicleProvider {
         .leftJoin(VEHICLE_STATE)
         .on(VEHICLE_STATE.ID.eq(VEHICLE.STATE_ID))
         .where(VEHICLE.COMPANY_ID.eq(companyId.getCompanyId()))
+        .and(VEHICLE.ARCHIVED.eq(Boolean.FALSE))
         .fetch()
         .into(VehicleRecord.class);
   }
@@ -71,6 +72,7 @@ public class VehicleProvider {
         .join(COMPANY_USER)
         .on(COMPANY_USER.ID.eq(USER_VEHICLE.USER_VEHICLE_ID))
         .where(COMPANY_USER.ID.eq(userId.getUserId()))
+        .and(VEHICLE.ARCHIVED.eq(Boolean.FALSE))
         .fetch()
         .into(VehicleRecord.class);
   }
@@ -86,6 +88,7 @@ public class VehicleProvider {
         .on(COMPANY_USER.ID.eq(USER_VEHICLE.USER_VEHICLE_ID))
         .where(VEHICLE.COMPANY_ID.eq(companyId.getCompanyId()))
         .and(USER_VEHICLE.USER_VEHICLE_ID.isNotNull())
+        .and(VEHICLE.ARCHIVED.eq(Boolean.FALSE))
         .fetch()
         .into(VehicleRecord.class);
   }

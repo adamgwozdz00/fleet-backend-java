@@ -21,9 +21,4 @@ public class VehicleRepositoryImpl implements VehicleRepository {
   public Vehicle load(VehicleId vehicleId) {
     return jpa.findById(vehicleId).orElse(null);
   }
-
-  @Override
-  public void delete(Vehicle vehicle) {
-    this.jpa.delete(vehicle);
-  }
 }

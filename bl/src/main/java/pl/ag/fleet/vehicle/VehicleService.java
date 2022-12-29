@@ -68,7 +68,9 @@ public class VehicleService {
       throw new IllegalStateException("Vehicle not exists");
     }
 
-    this.vehicleRepository.delete(vehicle);
+    vehicle.archive();
+
+    this.vehicleRepository.save(vehicle);
   }
 
   private boolean exists(Vehicle vehicle) {

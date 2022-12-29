@@ -1,6 +1,6 @@
 package pl.ag.fleet.company;
 
-import static pl.ag.fleet.Tables.COMPANY;
+import static nu.studer.sample.Tables.COMPANY;
 
 import lombok.RequiredArgsConstructor;
 import org.jooq.DSLContext;

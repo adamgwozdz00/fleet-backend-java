@@ -1,8 +1,9 @@
 package pl.ag.fleet.driver;
 
-import static org.jooq.generated.Tables.DRIVER;
-import static org.jooq.generated.Tables.VEHICLE;
-import static org.jooq.generated.Tables.VEHICLE_STATE;
+
+import static nu.studer.sample.Tables.DRIVER;
+import static nu.studer.sample.Tables.VEHICLE;
+import static nu.studer.sample.Tables.VEHICLE_STATE;
 
 import java.io.Serializable;
 import java.time.LocalDate;

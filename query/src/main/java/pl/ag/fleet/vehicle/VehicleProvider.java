@@ -1,9 +1,10 @@
 package pl.ag.fleet.vehicle;
 
-import static org.jooq.generated.Tables.COMPANY_USER;
-import static org.jooq.generated.Tables.USER_VEHICLE;
-import static pl.ag.fleet.Tables.VEHICLE;
-import static pl.ag.fleet.Tables.VEHICLE_STATE;
+
+import static nu.studer.sample.Tables.COMPANY_USER;
+import static nu.studer.sample.Tables.USER_VEHICLE;
+import static nu.studer.sample.Tables.VEHICLE;
+import static nu.studer.sample.Tables.VEHICLE_STATE;
 
 import java.io.Serializable;
 import java.util.Arrays;

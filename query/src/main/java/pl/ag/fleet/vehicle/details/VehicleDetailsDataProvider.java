@@ -1,10 +1,10 @@
 package pl.ag.fleet.vehicle.details;
 
-import static pl.ag.fleet.Tables.DRIVER;
-import static pl.ag.fleet.Tables.INSURANCE;
-import static pl.ag.fleet.Tables.OVERVIEW;
-import static pl.ag.fleet.Tables.VEHICLE;
-import static pl.ag.fleet.Tables.VEHICLE_STATE;
+import static nu.studer.sample.Tables.DRIVER;
+import static nu.studer.sample.Tables.INSURANCE;
+import static nu.studer.sample.Tables.OVERVIEW;
+import static nu.studer.sample.Tables.VEHICLE;
+import static nu.studer.sample.Tables.VEHICLE_STATE;
 
 import java.util.List;
 import java.util.Optional;

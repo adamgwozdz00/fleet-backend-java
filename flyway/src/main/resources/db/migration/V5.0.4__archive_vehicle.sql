@@ -1,0 +1,2 @@
+ALTER TABLE fleet.vehicle
+    ADD COLUMN archived BOOLEAN DEFAULT FALSE;

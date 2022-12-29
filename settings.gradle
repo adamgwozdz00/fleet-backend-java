@@ -15,6 +15,5 @@ include 'flyway'
 include 'security'
 include 'acl'
 include 'common'
-include 'jooq'
 include 'query'
 

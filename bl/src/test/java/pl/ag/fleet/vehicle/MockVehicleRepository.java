@@ -29,10 +29,6 @@ class MockVehicleRepository implements VehicleRepository {
     return this.vehicles.get(vehicleId);
   }
 
-  @Override
-  public void delete(Vehicle vehicle) {
-
-  }
 
   enum SaveLoadEvent {
     START, END

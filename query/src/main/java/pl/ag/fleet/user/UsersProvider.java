@@ -1,6 +1,6 @@
 package pl.ag.fleet.user;
 
-import static org.jooq.generated.Tables.AUTH_USER;
+import static nu.studer.sample.Tables.AUTH_USER;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;

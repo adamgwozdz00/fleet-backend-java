@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import pl.ag.fleet.common.Archived;
 import pl.ag.fleet.common.CompanyId;
 import pl.ag.fleet.common.VehicleId;
 
@@ -41,10 +42,14 @@ public class Vehicle {
   @JoinColumn(name = "insurance_id")
   private Insurance insurance;
 
+  @Embedded
+  private Archived archived;
+
   Vehicle(CompanyId companyId, VehicleDetails details) {
     this.id = new VehicleId();
     this.companyId = companyId;
     this.details = details;
+    this.archived = Archived.init();
   }
 
   void updateState(VehicleState state) {
@@ -66,6 +71,10 @@ public class Vehicle {
       return;
     }
     this.insurance = this.insurance.validateAndReturn(insurance);
+  }
+
+  void archive() {
+    this.archived = this.archived.archive();
   }
 
   private void vetoIfIncorrect(VehicleState state) {

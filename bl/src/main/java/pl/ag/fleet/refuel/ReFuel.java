@@ -1,5 +1,6 @@
 package pl.ag.fleet.refuel;
 
+import java.time.LocalDateTime;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,9 +28,12 @@ public class ReFuel {
   @Embedded
   private Cost cost;
 
-  ReFuel(VehicleId vehicleId, Liters liters, Cost cost) {
+  private LocalDateTime time;
+
+  ReFuel(VehicleId vehicleId, Liters liters, Cost cost, LocalDateTime time) {
     this.vehicleId = vehicleId;
     this.liters = liters;
     this.cost = cost;
+    this.time = time;
   }
 }

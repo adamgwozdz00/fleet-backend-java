@@ -18,7 +18,10 @@ public class RefuelService {
     reFuelRepository.save(
         new ReFuel(vehicleId,
             new Liters(refuelDTO.getLiters()),
-            new Cost(refuelDTO.getCost())));
+            new Cost(refuelDTO.getCost()),
+            refuelDTO.getTime()
+        )
+    );
   }
 
   private void vetoIfVehicleNotExists(VehicleId vehicleId) {

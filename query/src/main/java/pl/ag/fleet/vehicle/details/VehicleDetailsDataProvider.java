@@ -73,7 +73,7 @@ public class VehicleDetailsDataProvider {
   }
 
   public List<RefuelRecord> getRefuelHistory(VehicleId vehicleId) {
-    return context.select(RE_FUEL.COST, RE_FUEL.LITERS)
+    return context.select(RE_FUEL.COST, RE_FUEL.LITERS, RE_FUEL.TIME)
         .from(RE_FUEL)
         .where(RE_FUEL.VEHICLE_ID.eq(vehicleId.getVehicleId()))
         .fetch()

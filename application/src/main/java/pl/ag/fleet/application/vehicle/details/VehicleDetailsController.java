@@ -43,11 +43,7 @@ public class VehicleDetailsController {
   @GetMapping("/drivers/{vehicleId}")
   public ResponseEntity<DriverDetails> getDriverHistory(@PathVariable String vehicleId) {
     val result = this.vehicleDetailsDataProvider.getDriverHistory(vehicleId);
-    return ResponseEntity.ok(new DriverDetails(result.stream().map(
-        record -> new DriverDetail(record.getId(),
-            record.getLastName(), record.getKilometers(),
-            record.getTime().toString())).collect(
-        Collectors.toList())));
+    return ResponseEntity.ok(new DriverDetails(result));
   }
 
   @GetMapping("/fuels/{vehicleId}")

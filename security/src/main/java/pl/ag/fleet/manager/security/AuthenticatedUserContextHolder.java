@@ -9,4 +9,8 @@ public class AuthenticatedUserContextHolder {
   public AuthenticatedUser getAuthenticatedUser() {
     return (AuthenticatedUser) SecurityContextHolder.getContext().getAuthentication();
   }
+
+  public Long getAuthenticatedUserCompany() {
+    return this.getAuthenticatedUser().getPrincipal().getCompanyId();
+  }
 }

@@ -15,4 +15,6 @@ public class VehicleStateDTO {
   private BigDecimal liters;
   private BigDecimal kilometers;
   private LocalDateTime time;
+
+  private VehicleStatus status = VehicleStatus.ACTIVE;
 }

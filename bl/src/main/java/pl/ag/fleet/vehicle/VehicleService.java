@@ -27,7 +27,7 @@ public class VehicleService {
     }
     vehicle.updateState(
         new VehicleState(new DriverId(state.getDriverId()), new Liters(state.getLiters()),
-            new Kilometers(state.getKilometers()), state.getTime(), vehicleId));
+            new Kilometers(state.getKilometers()), state.getTime(), vehicleId, state.getStatus()));
 
     this.vehicleRepository.save(vehicle);
 

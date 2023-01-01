@@ -1,11 +1,12 @@
 package pl.ag.fleet.vehicle;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,10 +24,11 @@ import pl.ag.fleet.common.VehicleId;
 @Table(schema = "fleet")
 class VehicleState {
 
+  @Enumerated(EnumType.STRING)
+  VehicleStatus status;
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
-
   @AttributeOverride(name = "id", column = @Column(name = "actual_driver_id"))
   private DriverId actualDriver;
   private Liters actualFuel;
@@ -38,15 +40,17 @@ class VehicleState {
 
   public VehicleState(DriverId actualDriver, Liters actualFuel, Kilometers actualKilometers,
       LocalDateTime time, VehicleId vehicleId) {
+    this(actualDriver, actualFuel, actualKilometers, time, vehicleId, VehicleStatus.ACTIVE);
+  }
+
+  public VehicleState(DriverId actualDriver, Liters actualFuel, Kilometers actualKilometers,
+      LocalDateTime time, VehicleId vehicleId, VehicleStatus status) {
     this.actualDriver = actualDriver;
     this.actualFuel = actualFuel;
     this.actualKilometers = actualKilometers;
     this.time = time;
     this.vehicleId = vehicleId;
+    this.status = status;
   }
 
-  static VehicleState initial(VehicleId vehicleId) {
-    return new VehicleState(null, new Liters(BigDecimal.ZERO), new Kilometers(BigDecimal.ZERO),
-        LocalDateTime.now(), vehicleId);
-  }
 }

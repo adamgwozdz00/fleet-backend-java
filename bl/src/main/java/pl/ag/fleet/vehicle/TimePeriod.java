@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Embeddable
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-class TimePeriod implements Comparable<TimePeriod> {
+class TimePeriod {
 
   private LocalDateTime from;
   private LocalDateTime to;
@@ -19,11 +19,5 @@ class TimePeriod implements Comparable<TimePeriod> {
       throw new IllegalArgumentException("Improper time period.");
     }
     return new TimePeriod(from, to);
-  }
-
-
-  @Override
-  public int compareTo(TimePeriod o) {
-    return this.from.compareTo(o.from);
   }
 }

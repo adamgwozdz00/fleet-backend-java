@@ -33,7 +33,6 @@ public class VehicleService {
     ));
 
     this.vehicleRepository.save(vehicle);
-
   }
 
   public synchronized void updateVehicleState(VehicleId vehicleId, VehicleStateDTO state) {

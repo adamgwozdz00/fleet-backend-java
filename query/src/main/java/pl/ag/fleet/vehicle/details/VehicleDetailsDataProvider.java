@@ -3,10 +3,12 @@ package pl.ag.fleet.vehicle.details;
 import static nu.studer.sample.Tables.DRIVER;
 import static nu.studer.sample.Tables.INSURANCE;
 import static nu.studer.sample.Tables.OVERVIEW;
+import static nu.studer.sample.Tables.REPAIR;
 import static nu.studer.sample.Tables.RE_FUEL;
 import static nu.studer.sample.Tables.VEHICLE;
 import static nu.studer.sample.Tables.VEHICLE_STATE;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -101,5 +103,20 @@ public class VehicleDetailsDataProvider {
             .fetchOne()).map(record -> record.into(OverviewRecord.class));
 
   }
+
+
+  public List<RepairRecord> getRepairsHistory(VehicleId vehicleId, boolean onlyLastRepair) {
+    var result = context.select(RepairRecord.FIELDS)
+        .from(REPAIR)
+        .where(REPAIR.VEHICLE_ID.eq(vehicleId.getVehicleId()))
+        .orderBy(REPAIR.START_TIME.desc())
+        .fetch()
+        .into(RepairRecord.class);
+    if (onlyLastRepair && !result.isEmpty()) {
+      return Collections.singletonList(result.get(0));
+    }
+    return result;
+  }
+
 
 }

@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "repair", schema = "fleet")
 @NoArgsConstructor
-class Repair implements Comparable<Repair> {
+class Repair {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,10 +40,6 @@ class Repair implements Comparable<Repair> {
     this.cost = cost;
   }
 
-  @Override
-  public int compareTo(Repair o) {
-    return timePeriod.compareTo(o.timePeriod);
-  }
 
   public RepairId getRepairId() {
     return new RepairId(this.id);

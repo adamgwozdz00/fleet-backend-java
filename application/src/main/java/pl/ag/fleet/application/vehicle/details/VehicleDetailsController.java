@@ -51,4 +51,12 @@ public class VehicleDetailsController {
     val result = this.vehicleDetailsDataProvider.getRefuelHistory(new VehicleId(vehicleId));
     return ResponseEntity.ok(new RefuelDetails(result));
   }
+
+  @GetMapping("/repairs/{vehicleId}")
+  public ResponseEntity<RepairDetails> getRepairHistory(@PathVariable String vehicleId,
+      @RequestParam(defaultValue = "false") boolean onlyLastRepair) {
+    val result = this.vehicleDetailsDataProvider.getRepairsHistory(new VehicleId(vehicleId),
+        onlyLastRepair);
+    return ResponseEntity.ok(new RepairDetails(result));
+  }
 }

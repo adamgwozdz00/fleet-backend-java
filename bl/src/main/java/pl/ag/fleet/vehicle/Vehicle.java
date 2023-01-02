@@ -49,9 +49,6 @@ public class Vehicle {
   @JoinColumn(name = "vehicle_id")
   private List<Repair> repairs;
 
-  @AttributeOverride(name = "repairId", column = @Column(name = "last_repair"))
-  private RepairId lastRepair;
-
   @Embedded
   private Archived archived;
 
@@ -65,7 +62,6 @@ public class Vehicle {
 
   void updateRepair(Repair repair) {
     this.repairs.add(repair);
-    this.lastRepair = this.repairs.stream().max(Repair::compareTo).get().getRepairId();
   }
 
   void updateState(VehicleState state) {

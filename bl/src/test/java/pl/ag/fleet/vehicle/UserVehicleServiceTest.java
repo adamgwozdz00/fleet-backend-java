@@ -150,7 +150,7 @@ class UserVehicleServiceTest {
 
       executor.execute(() -> service.updateVehicleState(vehicleId,
           new VehicleStateDTO(1L, BigDecimal.valueOf(55), BigDecimal.valueOf(100000),
-              LocalDateTime.now())));
+              LocalDateTime.now(),VehicleStatus.ACTIVE)));
 
     }
     executor.shutdown();
@@ -180,7 +180,7 @@ class UserVehicleServiceTest {
 
   private void updateVehicleState(String vehicleId) {
     this.service.updateVehicleState(new VehicleId(vehicleId), new VehicleStateDTO(
-        1L, BigDecimal.valueOf(200), BigDecimal.valueOf(200), LocalDateTime.now()));
+        1L, BigDecimal.valueOf(200), BigDecimal.valueOf(200), LocalDateTime.now(),VehicleStatus.ACTIVE));
   }
 
   private void assertNumberOfVehicles(int numberOfVehicles) {

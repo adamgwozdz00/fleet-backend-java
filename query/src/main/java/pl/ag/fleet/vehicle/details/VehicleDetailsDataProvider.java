@@ -118,5 +118,15 @@ public class VehicleDetailsDataProvider {
     return result;
   }
 
+  public List<VehicleStateRecord> getVehicleStateHistory(VehicleId vehicleId) {
+    var result = context.select(VehicleStateRecord.FIELDS)
+        .from(VEHICLE_STATE)
+        .where(VEHICLE_STATE.VEHICLE_ID.eq(vehicleId.getVehicleId()))
+        .orderBy(VEHICLE_STATE.TIME.desc())
+        .fetch()
+        .into(VehicleStateRecord.class);
+    return result;
+  }
+
 
 }

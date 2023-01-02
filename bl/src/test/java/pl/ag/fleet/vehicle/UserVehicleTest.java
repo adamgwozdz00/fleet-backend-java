@@ -110,7 +110,8 @@ class UserVehicleTest {
   private void updateVehicle(long driverId, double fuelInLiters, double kilometers) {
     this.vehicle.updateState(
         new VehicleState(new DriverId(driverId), new Liters(BigDecimal.valueOf(fuelInLiters)),
-            new Kilometers(BigDecimal.valueOf(kilometers)), LocalDateTime.now(), vehicle.getId()));
+            new Kilometers(BigDecimal.valueOf(kilometers)), LocalDateTime.now(), vehicle.getId(),
+            VehicleStatus.ACTIVE, new Position()));
   }
 
   private void assertVehicleActualKilometers(double kilometers) {

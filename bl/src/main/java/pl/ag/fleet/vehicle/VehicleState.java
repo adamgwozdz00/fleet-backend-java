@@ -36,21 +36,19 @@ class VehicleState {
   private LocalDateTime time;
   @Embedded
   private VehicleId vehicleId;
-
-
-  public VehicleState(DriverId actualDriver, Liters actualFuel, Kilometers actualKilometers,
-      LocalDateTime time, VehicleId vehicleId) {
-    this(actualDriver, actualFuel, actualKilometers, time, vehicleId, VehicleStatus.ACTIVE);
-  }
+  @Embedded
+  private Position position;
 
   public VehicleState(DriverId actualDriver, Liters actualFuel, Kilometers actualKilometers,
-      LocalDateTime time, VehicleId vehicleId, VehicleStatus status) {
+      LocalDateTime time, VehicleId vehicleId, VehicleStatus status,
+      Position position) {
     this.actualDriver = actualDriver;
     this.actualFuel = actualFuel;
     this.actualKilometers = actualKilometers;
     this.time = time;
     this.vehicleId = vehicleId;
     this.status = status;
+    this.position = position;
   }
 
 }

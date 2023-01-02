@@ -17,4 +17,7 @@ public class VehicleStateDTO {
   private LocalDateTime time;
 
   private VehicleStatus status = VehicleStatus.ACTIVE;
+
+  private BigDecimal longitude;
+  private BigDecimal latitude;
 }

@@ -18,6 +18,7 @@ import pl.ag.fleet.refuel.RefuelDTO;
 import pl.ag.fleet.refuel.RefuelService;
 import pl.ag.fleet.vehicle.InsuranceDTO;
 import pl.ag.fleet.vehicle.OverviewDTO;
+import pl.ag.fleet.vehicle.RepairDTO;
 import pl.ag.fleet.vehicle.VehicleDTO;
 import pl.ag.fleet.vehicle.VehicleProvider;
 import pl.ag.fleet.vehicle.VehicleService;
@@ -73,6 +74,13 @@ public class VehicleController {
   public ResponseEntity<Void> updateInsurance(@PathVariable String vehicleId, @RequestBody
   InsuranceDTO request) {
     vehicleService.addOrUpdateInsurance(new VehicleId(vehicleId), request);
+    return ResponseEntity.ok().build();
+  }
+
+  @PutMapping("/{vehicleId}/repairs")
+  public ResponseEntity<Void> updateInsurance(@PathVariable String vehicleId, @RequestBody
+  RepairDTO request) {
+    vehicleService.updateRepair(new VehicleId(vehicleId), request);
     return ResponseEntity.ok().build();
   }
 

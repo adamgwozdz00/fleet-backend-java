@@ -19,6 +19,23 @@ public class VehicleService {
             vehicle.getFuelType(), vehicle.getVinNumber())));
   }
 
+  public synchronized void updateRepair(VehicleId vehicleId, RepairDTO repairDTO) {
+    val vehicle = this.vehicleRepository.load(vehicleId);
+
+    if (!exists(vehicle)) {
+      throw new IllegalStateException("Vehicle not exists");
+    }
+    vehicle.updateRepair(new Repair(
+        TimePeriod.of(repairDTO.getFrom(), repairDTO.getTo()),
+        new ServiceName(repairDTO.getServiceName()),
+        repairDTO.getTitle(),
+        repairDTO.getCost()
+    ));
+
+    this.vehicleRepository.save(vehicle);
+
+  }
+
   public synchronized void updateVehicleState(VehicleId vehicleId, VehicleStateDTO state) {
     val vehicle = this.vehicleRepository.load(vehicleId);
 

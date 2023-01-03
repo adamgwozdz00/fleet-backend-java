@@ -1,15 +1,17 @@
 package pl.ag.fleet.reports;
 
 import java.math.BigDecimal;
-import lombok.Value;
 
-@Value
-public class RefuelCostDataRecord implements Cost {
+public class RefuelCostDataRecord extends Cost {
 
-  private BigDecimal cost;
+  public RefuelCostDataRecord(BigDecimal cost) {
+    super(cost);
+  }
 
   @Override
   public Cost add(Cost cost) {
     return new RefuelCostDataRecord(this.cost.add(cost.getCost()));
   }
+
+
 }

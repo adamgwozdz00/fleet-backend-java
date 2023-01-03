@@ -2,9 +2,24 @@ package pl.ag.fleet.reports;
 
 import java.math.BigDecimal;
 
-public interface Cost {
+public abstract class Cost {
 
-  BigDecimal getCost();
+  protected final BigDecimal cost;
 
-  Cost add(Cost cost);
+  public Cost(BigDecimal cost) {
+    if (cost == null) {
+      this.cost = BigDecimal.ZERO;
+    } else {
+      this.cost = cost;
+    }
+  }
+
+  abstract Cost add(Cost cost);
+
+  public BigDecimal getCost() {
+    if (cost == null) {
+      return BigDecimal.ZERO;
+    }
+    return cost;
+  }
 }

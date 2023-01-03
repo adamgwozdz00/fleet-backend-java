@@ -11,6 +11,7 @@ import pl.ag.fleet.reports.CostParams;
 import pl.ag.fleet.reports.FuelCostData;
 import pl.ag.fleet.reports.InsuranceCostData;
 import pl.ag.fleet.reports.OverviewCostData;
+import pl.ag.fleet.reports.RepairCostData;
 
 @Component
 @RequiredArgsConstructor
@@ -20,11 +21,13 @@ public class CostDataServiceAdapter implements CostDataService {
 
   @Override
   public CostData getData(CostFilters costFilters) {
-    CostDataRecord data = costDataProvider.provide(new CostParams(costFilters.getCompanyId()));
+    CostDataRecord data = costDataProvider.provide(
+        new CostParams(costFilters.getCompanyId(), costFilters.getYears()));
     return new CostData(
         new FuelCostData(data.getRefuelCostDataRecord().getCost()),
         new InsuranceCostData(data.getInsuranceCostDataRecord().getCost()),
         new OverviewCostData(data.getOverviewCostDataRecord().getCost()),
+        new RepairCostData(data.getRepairCostDataRecord().getCost()),
         data.getTotalCostRecord().getCost()
     );
   }

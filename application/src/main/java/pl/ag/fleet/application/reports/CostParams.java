@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CostParams {
 
-  private List<Integer> years;
+  private List<Integer> years = List.of();
 }

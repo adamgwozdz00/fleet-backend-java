@@ -13,6 +13,7 @@ public class CostData {
   private FuelCostData fuelCostData;
   private InsuranceCostData insuranceCostData;
   private OverviewCostData overviewCostData;
+  private RepairCostData repairCostData;
 
   private BigDecimal totalCost;
 }

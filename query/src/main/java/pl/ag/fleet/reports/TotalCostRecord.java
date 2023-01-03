@@ -1,13 +1,13 @@
 package pl.ag.fleet.reports;
 
 import java.math.BigDecimal;
-import lombok.Value;
 
-@Value
-public class TotalCostRecord implements Cost {
 
-  private BigDecimal cost;
+public class TotalCostRecord extends Cost {
 
+  public TotalCostRecord(BigDecimal cost) {
+    super(cost);
+  }
 
   @Override
   public Cost add(Cost cost) {

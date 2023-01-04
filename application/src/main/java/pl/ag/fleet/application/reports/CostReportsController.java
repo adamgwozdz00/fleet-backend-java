@@ -3,6 +3,7 @@ package pl.ag.fleet.application.reports;
 import java.time.Year;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import lombok.val;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,9 +23,13 @@ public class CostReportsController {
 
   @GetMapping
   public ResponseEntity<CostData> getCosts(CostParams prams) {
-    return ResponseEntity.ok(this.costService.getCosts(new CostFilters(
-        contextHolder.getAuthenticatedUserCompany(),
+    val filters = new CostFilters(contextHolder.getAuthenticatedUserCompany(),
         prams.getYears().stream().map(Year::of).collect(
-            Collectors.toList()))));
+            Collectors.toList()),
+        prams.isIncludeFuelCost(),
+        prams.isIncludeOverviewCost(),
+        prams.isIncludeInsuranceCost(),
+        prams.isIncludeRepairCost());
+    return ResponseEntity.ok(this.costService.getCosts(filters));
   }
 }

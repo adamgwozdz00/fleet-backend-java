@@ -26,7 +26,7 @@ dependencies {
 jooq {
     configurations {
         main {
-            generateSchemaSourceOnCompilation = false
+            generateSchemaSourceOnCompilation = true
             generationTool {
                 logging = org.jooq.meta.jaxb.Logging.WARN
                 jdbc {

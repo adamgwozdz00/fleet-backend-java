@@ -11,4 +11,9 @@ import lombok.NoArgsConstructor;
 public class CostParams {
 
   private List<Integer> years = List.of();
+
+  private boolean includeFuelCost = false;
+  private boolean includeOverviewCost = false;
+  private boolean includeInsuranceCost = false;
+  private boolean includeRepairCost = false;
 }

@@ -10,10 +10,28 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CostData {
 
-  private FuelCostData fuelCostData;
-  private InsuranceCostData insuranceCostData;
-  private OverviewCostData overviewCostData;
-  private RepairCostData repairCostData;
+  private FuelCost fuelCost;
+  private InsuranceCost insuranceCost;
+  private OverviewCost overviewCost;
+  private RepairCost repairCost;
 
-  private BigDecimal totalCost;
+  private TotalCost totalCost;
+
+  public void calculateTotalCost() {
+    var totalCost = new TotalCost(BigDecimal.ZERO);
+    if (fuelCost != null) {
+      totalCost = totalCost.add(this.fuelCost);
+    }
+    if (insuranceCost != null) {
+      totalCost = totalCost.add(this.insuranceCost);
+    }
+    if (overviewCost != null) {
+      totalCost = totalCost.add(this.overviewCost);
+    }
+    if (repairCost != null) {
+      totalCost = totalCost.add(this.repairCost);
+    }
+
+    this.totalCost = totalCost;
+  }
 }

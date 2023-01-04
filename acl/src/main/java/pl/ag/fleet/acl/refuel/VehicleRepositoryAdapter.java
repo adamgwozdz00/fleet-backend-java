@@ -14,6 +14,6 @@ public class VehicleRepositoryAdapter implements pl.ag.fleet.refuel.VehicleRepos
 
   @Override
   public boolean exists(VehicleId vehicleId) {
-    return repository.load(new pl.ag.fleet.common.VehicleId(vehicleId.getVehicleId())) != null;
+    return repository.load(new VehicleId(vehicleId.getVehicleId())) != null;
   }
 }

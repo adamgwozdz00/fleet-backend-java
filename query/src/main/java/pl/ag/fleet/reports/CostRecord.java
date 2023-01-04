@@ -4,7 +4,8 @@ import java.math.BigDecimal;
 import lombok.Value;
 
 @Value
-public class OverviewCostData {
+public class CostRecord {
 
   private BigDecimal cost;
+
 }

@@ -12,6 +12,7 @@ import pl.ag.fleet.common.VehicleId;
 public class VehicleService {
 
   private final VehicleRepository vehicleRepository;
+  private final DriverAvailabilityService driverAvailabilityService;
 
   public synchronized void createVehicle(VehicleDTO vehicle) {
     this.vehicleRepository.save(new Vehicle(new CompanyId(vehicle.getCompanyId()),
@@ -35,19 +36,20 @@ public class VehicleService {
     this.vehicleRepository.save(vehicle);
   }
 
-  public synchronized void updateVehicleState(VehicleId vehicleId, VehicleStateDTO state) {
+  public synchronized Result updateVehicleState(VehicleId vehicleId, VehicleStateDTO state) {
     val vehicle = this.vehicleRepository.load(vehicleId);
 
     if (!exists(vehicle)) {
       throw new IllegalStateException("Vehicle not exists");
     }
-    vehicle.updateState(
+    val result = vehicle.updateState(
         new VehicleState(new DriverId(state.getDriverId()), new Liters(state.getLiters()),
-            new Kilometers(state.getKilometers()), state.getTime(), vehicleId, state.getStatus(),
-            new Position(state.getLongitude(), state.getLatitude())));
+            new Kilometers(state.getKilometers()), state.getTime(), state.getStatus(),
+            new Position(state.getLongitude(), state.getLatitude())), driverAvailabilityService);
 
     this.vehicleRepository.save(vehicle);
 
+    return result;
   }
 
   public synchronized void addOrUpdateInsurance(VehicleId vehicleId, InsuranceDTO insurance) {

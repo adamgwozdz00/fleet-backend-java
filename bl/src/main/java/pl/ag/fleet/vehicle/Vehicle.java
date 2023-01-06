@@ -35,9 +35,9 @@ public class Vehicle {
   private CompanyId companyId;
   @Embedded
   private VehicleDetails details;
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "state_id")
-  private VehicleState state;
+  @OneToMany(cascade = CascadeType.ALL)
+  @JoinColumn(name = "vehicle_id")
+  private List<VehicleState> states;
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "overview_id")
   private Overview overview;
@@ -58,16 +58,30 @@ public class Vehicle {
     this.details = details;
     this.archived = Archived.init();
     this.repairs = new ArrayList<>();
+    this.states = new ArrayList<>();
   }
 
   void updateRepair(Repair repair) {
     this.repairs.add(repair);
   }
 
-  void updateState(VehicleState state) {
-    this.vetoIfIncorrect(state);
-    this.state = state;
+  Result updateState(VehicleState state, DriverAvailabilityService driverAvailabilityService) {
+    if (!isValidNewNumberOfKilometers(state)) {
+      return new Result(false, "Invalid number of kilometers.");
+    }
+
+    if (states.stream().anyMatch(s -> s.hasAnyDriverAt(state))) {
+      return new Result(false, "Vehicle is busy.");
+    }
+
+    if (!state.isDriverAvailableAt(driverAvailabilityService)) {
+      return new Result(false, "Driver is busy.");
+    }
+
+    this.states.add(state);
+    return new Result(true, "");
   }
+
 
   void updateOverview(Overview overview) {
     if (this.overview == null) {
@@ -89,13 +103,16 @@ public class Vehicle {
     this.archived = this.archived.archive();
   }
 
-  private void vetoIfIncorrect(VehicleState state) {
-    if (this.state == null) {
-      return;
+  private boolean isValidNewNumberOfKilometers(VehicleState state) {
+    if (states.isEmpty()) {
+      return true;
     }
-    if (this.state.getActualKilometers().isLessOrEqualThan(state.getActualKilometers())) {
-      return;
-    }
-    throw new RuntimeException("Incorrect vehicle state.");
+
+    return getLatestState().isValidNewNumberOfKilometers(state);
   }
+
+  private VehicleState getLatestState() {
+    return states.stream().max(VehicleState::compareTo).get();
+  }
+
 }

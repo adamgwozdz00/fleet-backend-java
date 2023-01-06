@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @EqualsAndHashCode
 @Embeddable
-class DriverId {
+public class DriverId {
 
   private Long id;
 }

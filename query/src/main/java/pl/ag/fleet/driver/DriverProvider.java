@@ -7,6 +7,7 @@ import static nu.studer.sample.Tables.VEHICLE_STATE;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -63,6 +64,15 @@ public class DriverProvider {
         .into(DriverHistoryRecord.class);
   }
 
+  public boolean isDriverAvailableAt(long driverId, LocalDateTime time) {
+    return create.select(VEHICLE_STATE.ACTUAL_DRIVER_ID)
+        .from(VEHICLE_STATE)
+        .where(VEHICLE_STATE.ACTUAL_DRIVER_ID.eq(driverId))
+        .and(VEHICLE_STATE.TIME.between(time.toLocalDate().atStartOfDay(),
+            time.toLocalDate().atStartOfDay().plusHours(24)))
+        .fetch()
+        .isEmpty();
+  }
 
   private List<DriverRecord> getAllDrivers(CompanyId companyId) {
     return create.select(DRIVER_FIELDS)

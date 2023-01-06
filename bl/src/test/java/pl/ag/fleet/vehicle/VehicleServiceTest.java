@@ -18,7 +18,8 @@ import pl.ag.fleet.common.FuelType;
 import pl.ag.fleet.common.VehicleId;
 import pl.ag.fleet.vehicle.MockVehicleRepository.SaveLoadEvent;
 
-class UserVehicleServiceTest {
+
+class VehicleServiceTest {
 
   private MockVehicleRepository repository;
   private VehicleService service;
@@ -28,7 +29,7 @@ class UserVehicleServiceTest {
   @BeforeEach
   void setUp() {
     repository = new MockVehicleRepository();
-    service = new VehicleService(repository);
+    service = new VehicleService(repository, new MockDriverAvailabilityService());
   }
 
   @Test
@@ -200,5 +201,13 @@ class UserVehicleServiceTest {
   private void databaseWithVehicleId(String vehicleId) {
     this.repository.vehicles.put(new VehicleId(vehicleId), new Vehicle(new CompanyId(1L),
         new VehicleDetails("Ford", "Focus", 2020, FuelType.DIESEL, "VINNUMBER123")));
+  }
+
+  private class MockDriverAvailabilityService implements DriverAvailabilityService {
+
+    @Override
+    public boolean isAvailableAt(DriverId driverId, LocalDateTime time) {
+      return true;
+    }
   }
 }

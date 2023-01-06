@@ -19,4 +19,8 @@ class Kilometers {
   public boolean isLessOrEqualThan(Kilometers kilometers) {
     return this.kilometers.compareTo(kilometers.kilometers) < 1;
   }
+
+  public boolean isMoreThan(Kilometers actualKilometers) {
+    return this.kilometers.compareTo(actualKilometers.kilometers) > 0;
+  }
 }

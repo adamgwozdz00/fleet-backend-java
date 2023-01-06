@@ -19,6 +19,7 @@ import pl.ag.fleet.refuel.RefuelService;
 import pl.ag.fleet.vehicle.InsuranceDTO;
 import pl.ag.fleet.vehicle.OverviewDTO;
 import pl.ag.fleet.vehicle.RepairDTO;
+import pl.ag.fleet.vehicle.Result;
 import pl.ag.fleet.vehicle.VehicleDTO;
 import pl.ag.fleet.vehicle.VehicleProvider;
 import pl.ag.fleet.vehicle.VehicleService;
@@ -56,11 +57,9 @@ public class VehicleController {
   }
 
   @PutMapping("/{vehicleId}/states")
-  public ResponseEntity<Void> updateState(@PathVariable String vehicleId, @RequestBody
+  public ResponseEntity<Result> updateState(@PathVariable String vehicleId, @RequestBody
   VehicleStateDTO request) {
-    System.out.println(request.getKilometers());
-    vehicleService.updateVehicleState(new VehicleId(vehicleId), request);
-    return ResponseEntity.ok().build();
+    return ResponseEntity.ok(vehicleService.updateVehicleState(new VehicleId(vehicleId), request));
   }
 
   @PutMapping("/{vehicleId}/overviews")

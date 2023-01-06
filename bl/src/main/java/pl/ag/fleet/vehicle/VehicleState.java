@@ -15,14 +15,13 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import pl.ag.fleet.common.Liters;
-import pl.ag.fleet.common.VehicleId;
 
 @NoArgsConstructor
 @EqualsAndHashCode
 @Getter
 @Entity
 @Table(schema = "fleet")
-class VehicleState {
+class VehicleState implements Comparable<VehicleState> {
 
   @Enumerated(EnumType.STRING)
   VehicleStatus status;
@@ -35,20 +34,34 @@ class VehicleState {
   private Kilometers actualKilometers;
   private LocalDateTime time;
   @Embedded
-  private VehicleId vehicleId;
-  @Embedded
   private Position position;
 
   public VehicleState(DriverId actualDriver, Liters actualFuel, Kilometers actualKilometers,
-      LocalDateTime time, VehicleId vehicleId, VehicleStatus status,
+      LocalDateTime time, VehicleStatus status,
       Position position) {
     this.actualDriver = actualDriver;
     this.actualFuel = actualFuel;
     this.actualKilometers = actualKilometers;
     this.time = time;
-    this.vehicleId = vehicleId;
     this.status = status;
     this.position = position;
   }
 
+  boolean hasAnyDriverAt(VehicleState state) {
+    return this.time.toLocalDate().equals(state.time.toLocalDate());
+  }
+
+  boolean isDriverAvailableAt(DriverAvailabilityService driverAvailabilityService) {
+    return driverAvailabilityService.isAvailableAt(this.actualDriver, this.time);
+  }
+
+
+  @Override
+  public int compareTo(VehicleState o) {
+    return time.compareTo(o.time);
+  }
+
+  public boolean isValidNewNumberOfKilometers(VehicleState state) {
+    return this.actualKilometers.isLessOrEqualThan(state.actualKilometers);
+  }
 }

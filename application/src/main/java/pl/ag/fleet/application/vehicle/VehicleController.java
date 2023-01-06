@@ -1,5 +1,6 @@
 package pl.ag.fleet.application.vehicle;
 
+import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -41,6 +42,16 @@ public class VehicleController {
     val companyId = contextHolder.getAuthenticatedUser().getPrincipal().getCompanyId();
     vehicleService.createVehicle(new VehicleDTO(companyId, request.getMake(), request.getModel(),
         request.getProductionYear(), request.getFuelType(), request.getVinNumber()));
+    return ResponseEntity.ok().build();
+  }
+
+  @PostMapping("/csv")
+  public ResponseEntity<Void> createMany(@RequestBody List<VehicleBody> request) {
+    val companyId = contextHolder.getAuthenticatedUser().getPrincipal().getCompanyId();
+    for (var vehicle : request) {
+      vehicleService.createVehicle(new VehicleDTO(companyId, vehicle.getMake(), vehicle.getModel(),
+          vehicle.getProductionYear(), vehicle.getFuelType(), vehicle.getVinNumber()));
+    }
     return ResponseEntity.ok().build();
   }
 
@@ -87,6 +98,15 @@ public class VehicleController {
   public ResponseEntity<Void> refuelVehicle(@PathVariable String vehicleId, @RequestBody
   RefuelDTO request) {
     refuelService.refuelVehicle(new VehicleId(vehicleId), request);
+    return ResponseEntity.ok().build();
+  }
+
+  @PutMapping("/{vehicleId}/fuels/csv")
+  public ResponseEntity<Void> refuelManyVehicles(@PathVariable String vehicleId, @RequestBody
+  List<RefuelDTO> request) {
+    for (var refuel : request) {
+      refuelService.refuelVehicle(new VehicleId(vehicleId), refuel);
+    }
     return ResponseEntity.ok().build();
   }
 

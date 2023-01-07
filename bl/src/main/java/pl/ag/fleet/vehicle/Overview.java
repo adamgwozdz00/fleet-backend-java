@@ -3,7 +3,6 @@ package pl.ag.fleet.vehicle;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,17 +11,14 @@ import javax.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import pl.ag.fleet.common.VehicleId;
 
 @NoArgsConstructor
 @Getter
 @EqualsAndHashCode
 @Entity
 @Table(schema = "fleet")
-class Overview {
+class Overview implements Comparable<Overview> {
 
-  private final static String UNDEFINED = "undefined";
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
@@ -34,22 +30,17 @@ class Overview {
   private BigDecimal cost;
   @Column(name = "overview_description")
   private String description;
-  @Embedded
-  private VehicleId vehicleId;
 
-  public Overview(String name, LocalDate expirationDate, BigDecimal cost, String description,
-      VehicleId vehicleId) {
+  public Overview(String name, LocalDate expirationDate, BigDecimal cost, String description) {
     this.name = name;
     this.expirationDate = expirationDate;
     this.cost = cost;
     this.description = description;
-    this.vehicleId = vehicleId;
   }
 
-  Overview validateAndReturn(@NonNull Overview newOverview) {
-    if (newOverview.expirationDate.isAfter(this.expirationDate)) {
-      return newOverview;
-    }
-    throw new RuntimeException("Overview not valid, expires before actual overview.");
+
+  @Override
+  public int compareTo(Overview o) {
+    return expirationDate.compareTo(o.expirationDate);
   }
 }

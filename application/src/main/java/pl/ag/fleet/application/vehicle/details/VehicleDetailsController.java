@@ -22,7 +22,7 @@ public class VehicleDetailsController {
   @GetMapping("/insurances/{vehicleId}")
   public ResponseEntity<InsuranceDetails> getInsuranceHistory(@PathVariable String vehicleId,
       @RequestParam(defaultValue = "false") boolean onlyActual) {
-    val result = this.vehicleDetailsDataProvider.getInsuranceData(vehicleId, onlyActual);
+    val result = this.vehicleDetailsDataProvider.getInsuranceHistory(vehicleId, onlyActual);
     return ResponseEntity.ok(new InsuranceDetails(result.stream().map(
             record -> new InsuranceDetail(record.getId(), record.getInsuranceName(),
                 record.getInsuranceCost(), record.getInsuranceExpirationDate().toString()))
@@ -32,7 +32,7 @@ public class VehicleDetailsController {
   @GetMapping("/overviews/{vehicleId}")
   public ResponseEntity<OverviewDetails> getOverviewHistory(@PathVariable String vehicleId,
       @RequestParam(defaultValue = "false") boolean onlyActual) {
-    val result = this.vehicleDetailsDataProvider.getOverviewData(vehicleId, onlyActual);
+    val result = this.vehicleDetailsDataProvider.getOverviewHistory(vehicleId, onlyActual);
     return ResponseEntity.ok(new OverviewDetails(result.stream().map(
         record -> new OverviewDetail(record.getId(), record.getOverviewName(),
             record.getOverviewCost(), record.getOverviewExpirationDate().toString(),

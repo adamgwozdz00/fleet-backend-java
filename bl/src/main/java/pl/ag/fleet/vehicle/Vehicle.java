@@ -12,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -38,12 +37,12 @@ public class Vehicle {
   @OneToMany(cascade = CascadeType.ALL)
   @JoinColumn(name = "vehicle_id")
   private List<VehicleState> states;
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "overview_id")
-  private Overview overview;
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "insurance_id")
-  private Insurance insurance;
+  @OneToMany(cascade = CascadeType.ALL)
+  @JoinColumn(name = "vehicle_id")
+  private List<Overview> overviews;
+  @OneToMany(cascade = CascadeType.ALL)
+  @JoinColumn(name = "vehicle_id")
+  private List<Insurance> insurances;
 
   @OneToMany(cascade = CascadeType.ALL)
   @JoinColumn(name = "vehicle_id")
@@ -59,6 +58,8 @@ public class Vehicle {
     this.archived = Archived.init();
     this.repairs = new ArrayList<>();
     this.states = new ArrayList<>();
+    this.overviews = new ArrayList<>();
+    this.insurances = new ArrayList<>();
   }
 
   void updateRepair(Repair repair) {
@@ -84,19 +85,11 @@ public class Vehicle {
 
 
   void updateOverview(Overview overview) {
-    if (this.overview == null) {
-      this.overview = overview;
-      return;
-    }
-    this.overview = this.overview.validateAndReturn(overview);
+    this.overviews.add(overview);
   }
 
   void updateInsurance(Insurance insurance) {
-    if (this.insurance == null) {
-      this.insurance = insurance;
-      return;
-    }
-    this.insurance = this.insurance.validateAndReturn(insurance);
+    this.insurances.add(insurance);
   }
 
   void archive() {

@@ -60,7 +60,7 @@ public class VehicleService {
     }
     vehicle.updateInsurance(
         new Insurance(insurance.getInsuranceTitle(), insurance.getExpirationDate(),
-            insurance.getCost(), vehicleId));
+            insurance.getCost()));
 
     this.vehicleRepository.save(vehicle);
 
@@ -75,7 +75,7 @@ public class VehicleService {
 
     vehicle.updateOverview(
         new Overview(overview.getOverviewTitle(), overview.getExpirationDate(),
-            overview.getCost(), overview.getDescription(), vehicleId));
+            overview.getCost(), overview.getDescription()));
 
     this.vehicleRepository.save(vehicle);
   }

@@ -5,13 +5,10 @@ import static nu.studer.sample.Tables.INSURANCE;
 import static nu.studer.sample.Tables.OVERVIEW;
 import static nu.studer.sample.Tables.REPAIR;
 import static nu.studer.sample.Tables.RE_FUEL;
-import static nu.studer.sample.Tables.VEHICLE;
 import static nu.studer.sample.Tables.VEHICLE_STATE;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Component;
@@ -23,29 +20,35 @@ public class VehicleDetailsDataProvider {
 
   private final DSLContext context;
 
-  public List<InsuranceRecord> getInsuranceHistory(String vehicleId) {
-    return
-        context.select(INSURANCE.ID, INSURANCE.INSURANCE_COST, INSURANCE.INSURANCE_EXPIRATION_DATE,
-                INSURANCE.INSURANCE_NAME)
-            .from(INSURANCE)
-            .where(INSURANCE.VEHICLE_ID.eq(vehicleId))
-            .orderBy(INSURANCE.INSURANCE_EXPIRATION_DATE)
-            .fetch()
-            .into(InsuranceRecord.class);
+  public List<InsuranceRecord> getInsuranceHistory(String vehicleId, boolean onlyActual) {
+    var base = context.select(INSURANCE.ID, INSURANCE.INSURANCE_COST,
+            INSURANCE.INSURANCE_EXPIRATION_DATE,
+            INSURANCE.INSURANCE_NAME)
+        .from(INSURANCE)
+        .where(INSURANCE.VEHICLE_ID.eq(vehicleId))
+        .orderBy(INSURANCE.INSURANCE_EXPIRATION_DATE.desc());
+
+    if (onlyActual) {
+      return base.limit(1).fetch().into(InsuranceRecord.class);
+    }
+
+    return base.fetch().into(InsuranceRecord.class);
 
   }
 
-  public Optional<InsuranceRecord> getActualInsurance(String vehicleId) {
-    return
-        Optional.ofNullable(context.select(INSURANCE.ID, INSURANCE.INSURANCE_COST,
-                    INSURANCE.INSURANCE_EXPIRATION_DATE,
-                    INSURANCE.INSURANCE_NAME)
-                .from(INSURANCE)
-                .join(VEHICLE)
-                .on(VEHICLE.INSURANCE_ID.eq(INSURANCE.ID))
-                .where(INSURANCE.VEHICLE_ID.eq(vehicleId))
-                .fetchOne())
-            .map(record -> record.into(InsuranceRecord.class));
+  public List<OverviewRecord> getOverviewHistory(String vehicleId, boolean onlyActual) {
+    var base =
+        context.select(OVERVIEW.ID, OVERVIEW.OVERVIEW_COST, OVERVIEW.OVERVIEW_EXPIRATION_DATE,
+                OVERVIEW.OVERVIEW_NAME, OVERVIEW.OVERVIEW_DESCRIPTION)
+            .from(OVERVIEW)
+            .where(OVERVIEW.VEHICLE_ID.eq(vehicleId))
+            .orderBy(OVERVIEW.OVERVIEW_EXPIRATION_DATE.desc());
+
+    if (onlyActual) {
+      return base.limit(1).fetch().into(OverviewRecord.class);
+    }
+
+    return base.fetch().into(OverviewRecord.class);
   }
 
   public List<DriverHistoryRecord> getDriverHistory(String vehicleId) {
@@ -60,20 +63,6 @@ public class VehicleDetailsDataProvider {
             .into(DriverHistoryRecord.class);
   }
 
-  public List<OverviewRecord> getOverviewData(String vehicleId, boolean onlyActual) {
-    if (onlyActual) {
-      return this.getActualOverview(vehicleId).stream().collect(Collectors.toList());
-    }
-    return this.getOverviewHistory(vehicleId);
-  }
-
-  public List<InsuranceRecord> getInsuranceData(String vehicleId, boolean onlyActual) {
-    if (onlyActual) {
-      return this.getActualInsurance(vehicleId).stream().collect(Collectors.toList());
-    }
-    return this.getInsuranceHistory(vehicleId);
-  }
-
   public List<RefuelRecord> getRefuelHistory(VehicleId vehicleId) {
     return context.select(RE_FUEL.COST, RE_FUEL.LITERS, RE_FUEL.TIME)
         .from(RE_FUEL)
@@ -82,29 +71,6 @@ public class VehicleDetailsDataProvider {
         .fetch()
         .into(RefuelRecord.class);
   }
-
-  public List<OverviewRecord> getOverviewHistory(String vehicleId) {
-    return
-        context.select(OVERVIEW.ID, OVERVIEW.OVERVIEW_COST, OVERVIEW.OVERVIEW_EXPIRATION_DATE,
-                OVERVIEW.OVERVIEW_NAME, OVERVIEW.OVERVIEW_DESCRIPTION)
-            .from(OVERVIEW)
-            .where(OVERVIEW.VEHICLE_ID.eq(vehicleId))
-            .orderBy(OVERVIEW.OVERVIEW_EXPIRATION_DATE)
-            .fetch()
-            .into(OverviewRecord.class);
-  }
-
-  public Optional<OverviewRecord> getActualOverview(String vehicleId) {
-    return Optional.ofNullable(
-        context.select(OVERVIEW.ID, OVERVIEW.OVERVIEW_COST, OVERVIEW.OVERVIEW_EXPIRATION_DATE,
-                OVERVIEW.OVERVIEW_NAME, OVERVIEW.OVERVIEW_DESCRIPTION)
-            .from(OVERVIEW)
-            .join(VEHICLE).on(VEHICLE.OVERVIEW_ID.eq(OVERVIEW.ID))
-            .where(VEHICLE.VEHICLE_ID.eq(vehicleId))
-            .fetchOne()).map(record -> record.into(OverviewRecord.class));
-
-  }
-
 
   public List<RepairRecord> getRepairsHistory(VehicleId vehicleId, boolean onlyLastRepair) {
     var result = context.select(RepairRecord.FIELDS)

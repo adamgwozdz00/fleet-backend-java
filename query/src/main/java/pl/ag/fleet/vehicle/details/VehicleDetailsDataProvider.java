@@ -78,6 +78,7 @@ public class VehicleDetailsDataProvider {
     return context.select(RE_FUEL.COST, RE_FUEL.LITERS, RE_FUEL.TIME)
         .from(RE_FUEL)
         .where(RE_FUEL.VEHICLE_ID.eq(vehicleId.getVehicleId()))
+        .orderBy(RE_FUEL.TIME.desc())
         .fetch()
         .into(RefuelRecord.class);
   }

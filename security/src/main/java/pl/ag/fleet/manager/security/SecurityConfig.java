@@ -1,5 +1,6 @@
 package pl.ag.fleet.manager.security;
 
+import java.util.Arrays;
 import java.util.Collections;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +65,9 @@ public class SecurityConfig {
   @Bean
   public CorsConfigurationSource corsConfigurationSource() {
     val corsConfiguration = new CorsConfiguration();
-    corsConfiguration.setAllowedOrigins(Collections.singletonList(allowedOrigin));
+    corsConfiguration.setAllowedOrigins(
+        Arrays.asList("http://localhost:4200", "http://localhost:80",
+            "http://host.docker.internal:4200", "http://host.docker.internal:80"));
     corsConfiguration.setAllowedMethods(Collections.singletonList("*"));
     corsConfiguration.setAllowedHeaders(Collections.singletonList("*"));
     corsConfiguration.setExposedHeaders(Collections.singletonList("*"));

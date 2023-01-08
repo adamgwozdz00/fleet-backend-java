@@ -11,14 +11,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import pl.ag.fleet.common.Liters;
 
 @NoArgsConstructor
-@EqualsAndHashCode
-@Getter
 @Entity
 @Table(schema = "fleet")
 class VehicleState implements Comparable<VehicleState> {

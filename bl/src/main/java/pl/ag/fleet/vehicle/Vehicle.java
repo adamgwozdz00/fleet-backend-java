@@ -20,14 +20,14 @@ import pl.ag.fleet.common.Archived;
 import pl.ag.fleet.common.CompanyId;
 import pl.ag.fleet.common.VehicleId;
 
-@Getter
 @Entity
 @Table(schema = "fleet")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class Vehicle {
+public class Vehicle extends Overview {
 
   @EmbeddedId
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Getter
   private VehicleId id;
   @Embedded
   @AttributeOverride(name = "companyId", column = @Column(name = "company_Id"))

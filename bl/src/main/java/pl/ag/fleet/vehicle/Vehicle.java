@@ -23,7 +23,7 @@ import pl.ag.fleet.common.VehicleId;
 @Entity
 @Table(schema = "fleet")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class Vehicle extends Overview {
+public class Vehicle {
 
   @EmbeddedId
   @GeneratedValue(strategy = GenerationType.IDENTITY)

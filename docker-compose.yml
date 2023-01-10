@@ -1,9 +1,0 @@
-version: '3'
-services:
-
-  application:
-    platform: linux/x86_64
-    image: adamgwozdz00/fleet-backend-java
-    container_name: fleet-manager
-    ports:
-      - "8081:8080"

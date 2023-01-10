@@ -19,6 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -26,8 +27,8 @@ public class SecurityConfig {
 
   @Autowired
   private JwtRequestFilter jwtRequestFilter;
-  @Value("${allowedOrigin}")
-  private String allowedOrigin;
+  @Value("#{'${allowed.origins}'.split(',')}")
+  private List<String> allowedOrigins;
 
   @Bean
   public PasswordEncoder getBcryptPasswordEncoder() {
@@ -65,9 +66,7 @@ public class SecurityConfig {
   @Bean
   public CorsConfigurationSource corsConfigurationSource() {
     val corsConfiguration = new CorsConfiguration();
-    corsConfiguration.setAllowedOrigins(
-        Arrays.asList("http://localhost:4200", "http://localhost:80",
-            "http://host.docker.internal:4200", "http://host.docker.internal:80"));
+    corsConfiguration.setAllowedOrigins(allowedOrigins);
     corsConfiguration.setAllowedMethods(Collections.singletonList("*"));
     corsConfiguration.setAllowedHeaders(Collections.singletonList("*"));
     corsConfiguration.setExposedHeaders(Collections.singletonList("*"));

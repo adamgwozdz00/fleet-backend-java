@@ -57,9 +57,7 @@ public class VehicleProvider {
       case TAKEN:
         return getTakenVehiclesByCompany(companyId);
       case AVAILABLE:
-        val taken = getTakenVehiclesByCompany(companyId);
-        val allCompanyVehicles = getVehiclesByCompany(companyId);
-        return removeTakenVehicles(allCompanyVehicles, taken);
+        return getAvailableVehiclesByCompany(companyId);
       default:
         throw new UnsupportedOperationException();
     }
@@ -88,7 +86,7 @@ public class VehicleProvider {
         .where(VEHICLE.ARCHIVED.eq(Boolean.FALSE))
         .and(VEHICLE.COMPANY_ID.eq(companyId.getCompanyId()))
         .and(VEHICLE_STATE.TIME.eq(selectLatestStateTime()))
-        .and(VEHICLE.VEHICLE_ID.notIn(selectTakenVehicles()))
+        .and(VEHICLE.VEHICLE_ID.in(selectTakenVehicles()))
         .unionAll(
             create.select(FIELDS_WITH_MOCK_KM)
                 .from(VEHICLE)
@@ -97,6 +95,24 @@ public class VehicleProvider {
                 .and(VEHICLE.ARCHIVED.eq(Boolean.FALSE))
                 .and(VEHICLE.COMPANY_ID.eq(companyId.getCompanyId()))
                 .and(VEHICLE.VEHICLE_ID.in(selectTakenVehicles()))).fetch()
+        .into(VehicleRecord.class);
+  }
+
+  private List<VehicleRecord> getAvailableVehiclesByCompany(CompanyId companyId) {
+    return create.select(FIELDS)
+        .from(VEHICLE, VEHICLE_STATE)
+        .where(VEHICLE.ARCHIVED.eq(Boolean.FALSE))
+        .and(VEHICLE.COMPANY_ID.eq(companyId.getCompanyId()))
+        .and(VEHICLE_STATE.TIME.eq(selectLatestStateTime()))
+        .and(VEHICLE.VEHICLE_ID.notIn(selectTakenVehicles()))
+        .unionAll(
+            create.select(FIELDS_WITH_MOCK_KM)
+                .from(VEHICLE)
+                .where(VEHICLE.VEHICLE_ID.notIn(selectVehicleIdsWithState()))
+                .and(VEHICLE.VEHICLE_ID.notIn(selectTakenVehicles()))
+                .and(VEHICLE.ARCHIVED.eq(Boolean.FALSE))
+                .and(VEHICLE.COMPANY_ID.eq(companyId.getCompanyId()))
+                .and(VEHICLE.VEHICLE_ID.notIn(selectTakenVehicles()))).fetch()
         .into(VehicleRecord.class);
   }
 

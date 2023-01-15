@@ -14,7 +14,6 @@ public class SwaggerController {
 
   @GetMapping
   public String devTestToken() {
-    return "Bearer " + service.authenticate(new LoginDetails("admin@example.com", "f00pass123"))
-        .getToken().getToken();
+    return ":)";
   }
 }
